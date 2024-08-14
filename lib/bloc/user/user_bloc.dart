@@ -1,7 +1,8 @@
+import "package:equatable/equatable.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
 import "package:induction_app/repository/user_repository.dart";
 
-import "../models/models.dart";
+import "../../models/models.dart";
 
 part 'user_event.dart';
 part 'user_state.dart';

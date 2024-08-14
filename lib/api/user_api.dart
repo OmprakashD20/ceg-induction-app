@@ -9,11 +9,12 @@ class UserApi {
   UserApi({http.Client? httpClient})
       : _httpClient = httpClient ?? http.Client();
 
-  static const _baseUrl = 'induction-cms.krk.org.in/redfiles/json/';
+  static const _baseUrl = 'induction-cms.krk.org.in';
+  static const _basePath = '/redfiles/json/';
 
   //fetch user json data
   FutureEither<String> fetchUserJsonData() async {
-    final userRequest = Uri.https(_baseUrl, JsonLists.Users.url);
+    final userRequest = Uri.https(_baseUrl, _basePath + JsonLists.Users.url);
 
     final userResponse = await _httpClient.get(userRequest);
 
@@ -28,7 +29,8 @@ class UserApi {
 
   //fetch schedule json data
   FutureEither<String> fetchScheduleJsonData() async {
-    final scheduleRequest = Uri.https(_baseUrl, JsonLists.Schedule.url);
+    final scheduleRequest =
+        Uri.https(_baseUrl, _basePath + JsonLists.Schedule.url);
 
     final scheduleResponse = await _httpClient.get(scheduleRequest);
 
@@ -43,7 +45,7 @@ class UserApi {
 
   //fetch places json data
   FutureEither<String> fetchPlacesJsonData() async {
-    final placesRequest = Uri.https(_baseUrl, JsonLists.Places.url);
+    final placesRequest = Uri.https(_baseUrl, _basePath + JsonLists.Places.url);
 
     final placesResponse = await _httpClient.get(placesRequest);
 
@@ -58,7 +60,7 @@ class UserApi {
 
   //fetch faqs json data
   FutureEither<String> fetchFaqsJsonData() async {
-    final faqsRequest = Uri.https(_baseUrl, JsonLists.Faqs.url);
+    final faqsRequest = Uri.https(_baseUrl, _basePath + JsonLists.Faqs.url);
 
     final faqsResponse = await _httpClient.get(faqsRequest);
 
@@ -72,7 +74,7 @@ class UserApi {
   //fetch notifications json data
   FutureEither<String> fetchNotificationsJsonData() async {
     final notificationsRequest =
-        Uri.https(_baseUrl, JsonLists.Notifications.url);
+        Uri.https(_baseUrl, _basePath + JsonLists.Notifications.url);
 
     final notificationsResponse = await _httpClient.get(notificationsRequest);
 
@@ -87,7 +89,7 @@ class UserApi {
 
   //fetch events json data
   FutureEither<String> fetchEventsJsonData() async {
-    final eventsRequest = Uri.https(_baseUrl, JsonLists.Events.url);
+    final eventsRequest = Uri.https(_baseUrl, _basePath + JsonLists.Events.url);
 
     final eventsResponse = await _httpClient.get(eventsRequest);
 
