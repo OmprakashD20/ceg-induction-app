@@ -12,7 +12,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
   UserBloc({UserRepository? userRepository})
       : _userRepository = userRepository ?? UserRepository(),
-        super(UserInitial()) {
+        super(const UserInitial()) {
     on<UserLogin>(_onUserLogin);
     on<FetchUserJson>(_onFetchUserJson);
     on<FetchScheduleJson>(_onFetchScheduleJson);
@@ -26,15 +26,15 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     String rollNo = event.username;
     String password = event.password;
 
-    emit(UserLoading());
+    emit(const UserLoading());
 
     if (rollNo.isEmpty) {
-      return emit(UserError("Roll number cannot be empty"));
+      return emit(const UserError("Roll number cannot be empty"));
     }
 
     _userRepository.fetchUser(rollNo: rollNo).then((user) {
       if (user.dob != password || user.rollNo != rollNo) {
-        emit(UserError("Invalid credentials"));
+        emit(const UserError("Invalid credentials"));
         return;
       }
 
@@ -47,10 +47,10 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   void _onFetchUserJson(FetchUserJson event, Emitter<UserState> emit) {
     String rollNo = event.rollNo;
 
-    emit(UserLoading());
+    emit(const UserLoading());
 
     if (rollNo.isEmpty) {
-      return emit(UserError("Roll number cannot be empty"));
+      return emit(const UserError("Roll number cannot be empty"));
     }
 
     _userRepository.fetchUser(rollNo: rollNo).then((user) {
@@ -62,7 +62,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
   void _onFetchScheduleJson(FetchScheduleJson event, Emitter<UserState> emit) {
     final String batchId = event.batchId;
-    emit(UserLoading());
+    emit(const UserLoading());
 
     _userRepository.fetchSchedule().then((schedule) {
       emit(ScheduleLoaded(batchId: batchId, schedule: schedule));
@@ -72,7 +72,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   }
 
   void _onFetchPlacesJson(FetchPlacesJson event, Emitter<UserState> emit) {
-    emit(UserLoading());
+    emit(const UserLoading());
 
     _userRepository.fetchPlaces().then((places) {
       emit(PlacesLoaded(places: places));
@@ -83,7 +83,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
   void _onFetchNotificationsJson(
       FetchNotificationsJson event, Emitter<UserState> emit) {
-    emit(UserLoading());
+    emit(const UserLoading());
 
     _userRepository.fetchNotifications().then((notifications) {
       emit(NotificationsLoaded(notifications: notifications));
@@ -93,7 +93,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   }
 
   void _onFetchFAQJson(FetchFAQJson event, Emitter<UserState> emit) {
-    emit(UserLoading());
+    emit(const UserLoading());
 
     _userRepository.fetchFAQs().then((faqs) {
       emit(FAQLoaded(faqs: faqs));
@@ -102,5 +102,13 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     });
   }
 
-  void _onFetchEventsJson(FetchEventsJson event, Emitter<UserState> emit) {}
+  void _onFetchEventsJson(FetchEventsJson event, Emitter<UserState> emit) {
+    emit(const UserLoading());
+
+    _userRepository.fetchEvents().then((events) {
+      emit(EventsLoaded(events: events));
+    }).catchError((e) {
+      emit(UserError(e.toString()));
+    });
+  }
 }
