@@ -3,11 +3,10 @@ import 'package:flutter/material.dart';
 class IColors {
   // App theme colors
   static const Color primary = Color.fromARGB(255, 8, 138, 226);
-  static const Color secondary = Color(0xFFFFE24B);
-  static const Color accent = Color(0xFFb0c7ff);
-
   static const Color darkBlue = Color.fromARGB(255, 8, 138, 226);
   static const Color lightBlue = Color.fromARGB(255, 195, 236, 248);
+  static const Color lightestBlue = Color.fromARGB(255, 236, 250, 255);
+  static const Color lightWhiteBlue = Color.fromARGB(255, 248, 253, 255);
 
   static const Color error = Color(0xFFD32F2F);
   static const Color success = Color(0xFF388E3C);

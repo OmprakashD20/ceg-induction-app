@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:induction_app/utils/color.dart';
 
 class SCircularImage extends StatelessWidget {
   const SCircularImage({
@@ -28,7 +27,8 @@ class SCircularImage extends StatelessWidget {
       height: height,
       padding: EdgeInsets.all(padding),
       decoration: BoxDecoration(
-          color: IColors.white, borderRadius: BorderRadius.circular(radius)),
+          color: Colors.white.withOpacity(0.1),
+          borderRadius: BorderRadius.circular(radius)),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(radius),
         child: Image(

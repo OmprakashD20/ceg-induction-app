@@ -5,9 +5,11 @@ import 'package:induction_app/common/widgets/button.dart';
 import 'package:induction_app/common/widgets/snackbar.dart';
 import 'package:induction_app/features/authentication/helpers.dart';
 import 'package:induction_app/features/authentication/widgets/header.dart';
-import 'package:induction_app/features/ceg/home_sreen.dart';
+import 'package:induction_app/features/ceg/home/home.dart';
+import 'package:induction_app/features/ceg/navigation.dart';
 import 'package:induction_app/utils/color.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
+import 'package:induction_app/utils/device/device_utils.dart';
 
 class AuthForm extends StatefulWidget {
   const AuthForm({
@@ -75,6 +77,7 @@ class _AuthFormState extends State<AuthForm> {
                             //     context: context,
                             //     fieldName: "RegNo",
                             //     value: value),
+                            cursorColor: IColors.primary,
                             keyboardType: TextInputType.number,
                             decoration: TextFieldHelpers.inputDecoration(
                                 tfBorderRadius: 10.0,
@@ -97,7 +100,7 @@ class _AuthFormState extends State<AuthForm> {
                             //         fieldName: "Password",
                             //         value: value),
                             keyboardType: TextInputType.number,
-
+                            cursorColor: IColors.primary,
                             decoration: TextFieldHelpers.inputDecoration(
                               tfBorderRadius: 10.0,
                               labelText: "Password",
@@ -120,10 +123,23 @@ class _AuthFormState extends State<AuthForm> {
                                   regNo: regNoController.text,
                                   password: passwordController.text);
                               if (!valid) return;
+
+                              //hide keyboard
+                              IDeviceUtils.hideKeyboard(context);
+
+                              ISnackBar.clearAllSnackBars(context);
+                              ISnackBar.customToast(
+                                  type: SnackBarType.success,
+                                  title: "Login Successfull!",
+                                  subTitle:
+                                      "Your credentials are valid. Explore the the app now.",
+                                  context: context);
+
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => HomeScreen()));
+                                      builder: (context) =>
+                                          NavigationMenuBar()));
                             })
                       ],
                     ),

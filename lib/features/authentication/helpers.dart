@@ -10,7 +10,7 @@ class TextFieldHelpers {
     bool passValid =
         password == null || password.isEmpty || int.tryParse(password) == null;
     if (regNoValid && passValid) {
-      TLoaders.customToast(
+      ISnackBar.customToast(
           type: SnackBarType.error,
           title: "Invalid Credentials",
           subTitle:
@@ -18,7 +18,7 @@ class TextFieldHelpers {
           context: context);
       return false;
     } else if (regNoValid) {
-      TLoaders.customToast(
+      ISnackBar.customToast(
           type: SnackBarType.error,
           title: "Invalid Credentials",
           subTitle:
@@ -26,7 +26,7 @@ class TextFieldHelpers {
           context: context);
       return false;
     } else if (passValid) {
-      TLoaders.customToast(
+      ISnackBar.customToast(
           type: SnackBarType.error,
           title: "Invalid Credentials",
           subTitle: "Password must not be empty and should contain only digits",

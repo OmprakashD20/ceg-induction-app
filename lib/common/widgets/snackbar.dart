@@ -2,12 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:induction_app/utils/color.dart';
+import 'package:induction_app/utils/device/device_utils.dart';
 
 enum SnackBarType { success, warning, error }
 
-class TLoaders {
+class ISnackBar {
   static hideSnackBar(BuildContext context) =>
       ScaffoldMessenger.of(context).hideCurrentSnackBar();
+
+  static clearAllSnackBars(BuildContext context) =>
+      ScaffoldMessenger.of(context).clearSnackBars();
 
   static customToast(
       {required SnackBarType type,
@@ -17,11 +21,12 @@ class TLoaders {
     ScaffoldMessenger.of(context).removeCurrentSnackBar();
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         elevation: 0,
-        duration: const Duration(seconds: 4),
+        duration: const Duration(seconds: 2),
         backgroundColor: Colors.transparent,
         content: Container(
           padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 10),
-          // margin: const EdgeInsets.symmetric(horizontal: 10.0),
+          // margin: EdgeInsets.only(
+          //     bottom: IDeviceUtils.getScreenHeight(context) - 150),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10.0),
             color: (type == SnackBarType.success)
