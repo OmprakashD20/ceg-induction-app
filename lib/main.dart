@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:induction_app/common/widgets/loader.dart';
 import 'package:induction_app/features/onboarding/onboarding.dart';
 import 'package:induction_app/utils/color.dart';
+import 'package:induction_app/utils/strings.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

@@ -28,6 +28,9 @@ dependencies:
   insta_image_viewer: ^1.0.4
   timeline_tile: ^2.0.0
   url_launcher: ^6.3.0
+  accordion: ^2.6.0
+  font_awesome_flutter: ^10.7.0
+  material_design_icons_flutter: ^7.0.7296
 
 dev_dependencies:
   flutter_test:

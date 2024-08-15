@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:induction_app/common/widgets/nav_bar/nav_item.dart';
+import 'package:induction_app/common/widgets/nav_item.dart';
 import 'package:induction_app/features/ceg/dummy.dart';
 import 'package:induction_app/features/ceg/home/home.dart';
 import 'package:induction_app/features/ceg/map/map.dart';
