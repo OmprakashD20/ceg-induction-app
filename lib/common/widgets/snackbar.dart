@@ -7,19 +7,20 @@ import 'package:induction_app/utils/device/device_utils.dart';
 enum SnackBarType { success, warning, error }
 
 class ISnackBar {
-  static hideSnackBar(BuildContext context) =>
-      ScaffoldMessenger.of(context).hideCurrentSnackBar();
+  static GlobalKey<ScaffoldMessengerState> snackbarKey =
+      GlobalKey<ScaffoldMessengerState>();
 
-  static clearAllSnackBars(BuildContext context) =>
-      ScaffoldMessenger.of(context).clearSnackBars();
+  static hideSnackBar() => snackbarKey.currentState?.hideCurrentSnackBar();
 
-  static customToast(
-      {required SnackBarType type,
-      required String title,
-      required String subTitle,
-      required BuildContext context}) {
-    ScaffoldMessenger.of(context).removeCurrentSnackBar();
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+  static clearAllSnackBars() => snackbarKey.currentState?.clearSnackBars();
+
+  static customToast({
+    required SnackBarType type,
+    required String title,
+    required String subTitle,
+  }) {
+    snackbarKey.currentState?.removeCurrentSnackBar();
+    snackbarKey.currentState?.showSnackBar(SnackBar(
         elevation: 0,
         duration: const Duration(seconds: 2),
         backgroundColor: Colors.transparent,

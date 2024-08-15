@@ -11,26 +11,26 @@ class TextFieldHelpers {
         password == null || password.isEmpty || int.tryParse(password) == null;
     if (regNoValid && passValid) {
       ISnackBar.customToast(
-          type: SnackBarType.error,
-          title: "Invalid Credentials",
-          subTitle:
-              "Register number and Password must not be empty and should contain only digits.",
-          context: context);
+        type: SnackBarType.error,
+        title: "Invalid Credentials",
+        subTitle:
+            "Register number and Password must not be empty and should contain only digits.",
+      );
       return false;
     } else if (regNoValid) {
       ISnackBar.customToast(
-          type: SnackBarType.error,
-          title: "Invalid Credentials",
-          subTitle:
-              "Register number must not be empty and should contain only digits",
-          context: context);
+        type: SnackBarType.error,
+        title: "Invalid Credentials",
+        subTitle:
+            "Register number must not be empty and should contain only digits",
+      );
       return false;
     } else if (passValid) {
       ISnackBar.customToast(
-          type: SnackBarType.error,
-          title: "Invalid Credentials",
-          subTitle: "Password must not be empty and should contain only digits",
-          context: context);
+        type: SnackBarType.error,
+        title: "Invalid Credentials",
+        subTitle: "Password must not be empty and should contain only digits",
+      );
       return false;
     }
 
@@ -39,11 +39,12 @@ class TextFieldHelpers {
 
   static InputDecoration inputDecoration(
       {required Widget prefixIcon,
-      required String labelText,
+      String? labelText,
+      String? hintText,
       required double tfBorderRadius}) {
     return InputDecoration(
       prefixIcon: prefixIcon,
-
+      hintText: hintText,
       labelText: labelText,
       errorMaxLines: 3,
       prefixIconColor: IColors.black,
@@ -51,10 +52,8 @@ class TextFieldHelpers {
       // constraints: const BoxConstraints.expand(height: TSizes.inputFieldHeight),
       labelStyle:
           const TextStyle().copyWith(fontSize: 15, color: IColors.black),
-      hintStyle: const TextStyle().copyWith(
-        fontSize: 15,
-        color: IColors.black,
-      ),
+      hintStyle: TextStyle(
+          fontSize: 15, color: IColors.darkGrey, fontWeight: FontWeight.w400),
       errorStyle: const TextStyle().copyWith(
           fontStyle: FontStyle.normal, color: IColors.warning, fontSize: 13.0),
       floatingLabelStyle:

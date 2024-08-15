@@ -91,4 +91,20 @@ class UserRepository {
       return ScheduleModel.fromMap(jsonData);
     });
   }
+
+  Future<List<EventModel>> fetchEvents() async {
+    final response = await _userApi.fetchEventsJsonData();
+
+    return response.fold((l) {
+      throw DataNotFoundException(message: l.message);
+    }, (eventsJson) {
+      final jsonData = json.decode(eventsJson) as Map<String, dynamic>;
+
+      return List<EventModel>.from(
+        (jsonData['programs'] as List).map(
+          (event) => EventModel.fromMap(event),
+        ),
+      );
+    });
+  }
 }

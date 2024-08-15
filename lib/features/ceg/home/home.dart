@@ -49,11 +49,12 @@ class _HomeScreenState extends State<HomeScreen> {
                       enableInfiniteScroll: false,
                       height: 150),
                 ),
-                SizedBox(
-                  height: 15,
-                ),
+
                 //GridView
                 BentoGridView(gridUnit: gridUnit),
+                SizedBox(
+                  height: height * 0.15,
+                ),
               ],
             ),
           ),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:induction_app/common/widgets/screen_app_bar.dart';
 import 'package:induction_app/features/authentication/widgets/screen_background.dart';
 import 'package:induction_app/features/ceg/help/widgets/contact_card.dart';
-import 'package:induction_app/models/ContactModel.dart';
+import 'package:induction_app/models/contact_model.dart';
 import 'package:induction_app/utils/color.dart';
 
 class DevelopersScreen extends StatelessWidget {

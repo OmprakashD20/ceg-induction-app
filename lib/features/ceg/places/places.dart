@@ -169,7 +169,8 @@ class PlacesScreen extends StatelessWidget {
                       Navigator.of(context).pop();
                     },
                     margin: 0.0,
-                    isSuffixIcon: false,
+                    icon: Iconsax.close_square,
+                    isPrefixIcon: true,
                     text: "Exit"),
               )
             ],

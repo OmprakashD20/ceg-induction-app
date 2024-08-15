@@ -57,6 +57,7 @@ class CEGMapScreen extends StatelessWidget {
                             builder: (context) => MapFullScreen()));
                   },
                   text: "Full Screen",
+                  isPrefixIcon: true,
                   icon: Iconsax.maximize_21,
                 )
               ],
@@ -93,8 +94,13 @@ class MapFullScreen extends StatelessWidget {
                 maxScale: 5,
                 child: Transform.rotate(
                   angle: -math.pi / 2,
-                  child: Image.asset(
-                    MediaStrings.map,
+                  child: FadeInImage(
+                    placeholder: AssetImage(
+                      MediaStrings.loader,
+                    ),
+                    image: AssetImage(
+                      MediaStrings.map,
+                    ),
                   ),
                 ),
               ),

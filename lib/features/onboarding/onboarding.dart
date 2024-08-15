@@ -89,6 +89,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                       height: 25.0,
                     ),
                     IButton(
+                      width: double.infinity,
                       text: "Gets Started",
                       onTap: () {
                         Navigator.push(

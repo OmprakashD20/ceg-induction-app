@@ -6,38 +6,35 @@ class UserInfoCard extends StatelessWidget {
   final IconData icon;
   final double iconSize;
   final String title;
-
+  final EdgeInsets padding;
   final String content;
   final bool isCardSizeVariable;
+  final bool isIconBlue;
   const UserInfoCard(
       {super.key,
       required this.icon,
-      this.iconSize = 25.0,
+      this.iconSize = 30.0,
       required this.title,
+      this.isIconBlue = true,
+      this.padding =
+          const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
       required this.content,
       this.isCardSizeVariable = false});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: IDeviceUtils.getScreenWidth(context) * 0.9,
-        padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 7.5),
-        margin: const EdgeInsets.all(1),
+        //color: Colors.red,
+        padding: padding,
         child: Row(
           children: [
             Container(
-              margin: const EdgeInsets.only(right: 10.0),
-              padding: const EdgeInsets.all(5.0),
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                //border: Border.all(color: IColors.primary, width: 1.5),
-              ),
-              child: Center(
-                  child: Icon(
+              margin: const EdgeInsets.only(right: 10, left: 10.0),
+              child: Icon(
                 icon,
-                size: 30,
-                color: IColors.primary,
-              )),
+                size: iconSize,
+                color: isIconBlue ? IColors.primary : IColors.darkGrey,
+              ),
             ),
             Expanded(
               child: Column(
@@ -52,7 +49,7 @@ class UserInfoCard extends StatelessWidget {
                   Text(content,
                       maxLines: (isCardSizeVariable) ? 3 : 1,
                       overflow: TextOverflow.ellipsis,
-                      style: TextStyle(fontSize: 16.0, color: IColors.black)),
+                      style: TextStyle(fontSize: 15.0, color: IColors.black)),
                 ],
               ),
             ),

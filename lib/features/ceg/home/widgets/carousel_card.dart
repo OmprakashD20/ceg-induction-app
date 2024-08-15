@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:induction_app/common/widgets/small_button.dart';
+import 'package:induction_app/features/ceg/events/events.dart';
 import 'package:induction_app/utils/color.dart';
 import 'package:induction_app/utils/device/device_utils.dart';
 
@@ -89,7 +90,13 @@ class CarouselCard extends StatelessWidget {
                 text: "Aug 12,2023",
                 isBlue: isBlueCard,
               ),
-              ISmallButton(),
+              ISmallButton(
+                onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            EventsScreen(automaticallyImplyLeading: true))),
+              ),
             ],
           ),
         ],

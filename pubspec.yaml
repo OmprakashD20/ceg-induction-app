@@ -31,6 +31,7 @@ dependencies:
   accordion: ^2.6.0
   font_awesome_flutter: ^10.7.0
   material_design_icons_flutter: ^7.0.7296
+  connectivity_plus: ^6.0.5
 
 dev_dependencies:
   flutter_test:
