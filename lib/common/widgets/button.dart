@@ -7,7 +7,8 @@ class IButton extends StatelessWidget {
       {super.key,
       required this.onTap,
       required this.text,
-      this.isSuffixIcon = true,
+      this.isSuffixIcon = false,
+      this.isPrefixIcon = false,
       this.margin = 10.0,
       this.icon,
       this.height,
@@ -15,6 +16,7 @@ class IButton extends StatelessWidget {
   final String text;
   VoidCallback onTap;
   bool isSuffixIcon;
+  bool isPrefixIcon;
   double? height;
   double margin;
   double? width;
@@ -26,27 +28,37 @@ class IButton extends StatelessWidget {
       child: Container(
         height: height ?? 50.0,
         width: width,
+        padding: EdgeInsets.symmetric(horizontal: 10.0),
         margin: EdgeInsets.symmetric(vertical: margin),
         decoration: BoxDecoration(
             color: IColors.darkBlue, borderRadius: BorderRadius.circular(10)),
         child: Row(
+          mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Expanded(
-              child: Text(
-                text,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
+            if (isPrefixIcon)
+              Padding(
+                padding: const EdgeInsets.only(right: 10.0),
+                child: Icon(
+                  icon == null ? Iconsax.arrow_circle_right5 : icon,
                   color: Colors.white,
-                  fontSize: 17.0,
-                  fontFamily: "Poppins",
                 ),
+              ),
+            Text(
+              text,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontWeight: FontWeight.w500,
+                color: Colors.white,
+                fontSize: 17.0,
+                fontFamily: "Poppins",
               ),
             ),
             if (isSuffixIcon)
               Padding(
-                padding: const EdgeInsets.only(right: 10.0),
+                padding: const EdgeInsets.only(
+                  left: 10,
+                ),
                 child: Icon(
                   icon == null ? Iconsax.arrow_circle_right5 : icon,
                   color: Colors.white,

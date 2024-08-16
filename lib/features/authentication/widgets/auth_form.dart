@@ -131,13 +131,13 @@ class _AuthFormState extends State<AuthForm> {
                               //hide keyboard
                               IDeviceUtils.hideKeyboard(context);
 
-                              ISnackBar.clearAllSnackBars(context);
+                              ISnackBar.clearAllSnackBars();
                               ISnackBar.customToast(
-                                  type: SnackBarType.success,
-                                  title: "Login Successfull!",
-                                  subTitle:
-                                      "Your credentials are valid. Explore the the app now.",
-                                  context: context);
+                                type: SnackBarType.success,
+                                title: "Login Successfull!",
+                                subTitle:
+                                    "Your credentials are valid. Explore the the app now.",
+                              );
 
                               Navigator.push(
                                   context,

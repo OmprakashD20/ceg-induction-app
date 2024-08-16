@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
+import 'package:induction_app/common/widgets/button.dart';
+import 'package:induction_app/common/widgets/circle_icon_button.dart';
 import 'package:induction_app/common/widgets/profile_avatar.dart';
 import 'package:induction_app/common/widgets/screen_app_bar.dart';
 import 'package:induction_app/features/authentication/widgets/screen_background.dart';
@@ -27,13 +30,32 @@ class ProfileScreen extends StatelessWidget {
       body: ScreenBackground(
         child: Column(
           children: [
-            ScreenAppBar(
-              text: "Profile",
-              automaticallyImplyLeading: automaticallyImplyLeading,
+            Stack(
+              alignment: Alignment.centerRight,
+              children: [
+                ScreenAppBar(
+                  text: "Profile",
+                  automaticallyImplyLeading: automaticallyImplyLeading,
+                ),
+                // Padding(
+                //   padding: const EdgeInsets.only(right: 15.0),
+                //   child: CircleIconButton(
+                //     onPressed: () {},
+                //     color: Colors.lightBlue,
+                //     size: 40,
+                //     icon: Iconsax.logout,
+                //   ),
+                // ),
+              ],
             ),
             UserInfoSection(
               user: user,
             ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15.0),
+              child:
+                  IButton(width: double.infinity, onTap: () {}, text: "Logout"),
+            )
           ],
         ),
       ),

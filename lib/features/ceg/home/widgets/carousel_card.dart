@@ -134,7 +134,13 @@ class CarouselCard extends StatelessWidget {
                 text: formatDate(date),
                 isBlue: isBlueCard,
               ),
-              ISmallButton(),
+              ISmallButton(
+                onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            EventsScreen(automaticallyImplyLeading: true))),
+              ),
             ],
           ),
         ],
