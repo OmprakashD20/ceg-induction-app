@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:induction_app/common/widgets/nav_bar/nav_item.dart';
-import 'package:induction_app/features/ceg/dummy.dart';
+import 'package:induction_app/common/widgets/nav_item.dart';
 import 'package:induction_app/features/ceg/home/home.dart';
 import 'package:induction_app/features/ceg/map/map.dart';
-import 'package:induction_app/features/ceg/notif/notifications.dart';
+import 'package:induction_app/features/ceg/notification/notifications.dart';
 import 'package:induction_app/features/ceg/profile/profile.dart';
 import 'package:induction_app/features/ceg/schedule/schedule.dart';
 import 'package:induction_app/utils/color.dart';

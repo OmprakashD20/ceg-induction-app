@@ -8,6 +8,7 @@ import 'package:induction_app/common/widgets/screen_app_bar.dart';
 import 'package:induction_app/common/widgets/small_button.dart';
 import 'package:induction_app/features/authentication/widgets/screen_background.dart';
 import 'package:induction_app/utils/color.dart';
+import 'package:induction_app/utils/helpers.dart';
 import 'package:induction_app/utils/strings.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -34,7 +35,7 @@ class PlacesScreen extends StatelessWidget {
                   physics: NeverScrollableScrollPhysics(),
                   itemCount: 5,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      mainAxisExtent: 200.0, crossAxisCount: 2),
+                      mainAxisExtent: 170.0, crossAxisCount: 2),
                   itemBuilder: ((context, index) {
                     return Container(
                       margin: EdgeInsets.all(5.0),
@@ -80,33 +81,60 @@ class PlacesScreen extends StatelessWidget {
                                   )
                                 ],
                               )),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 10.0, vertical: 5),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: Text(
-                                    "Red Building",
-                                    textAlign: TextAlign.start,
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w500),
-                                  ),
+                          Expanded(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(10.0),
+                                  bottomRight: Radius.circular(10.0),
                                 ),
-                              ],
+                              ),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 10.0, vertical: 5),
+                                      child: Text(
+                                        "Red Building",
+                                        textAlign: TextAlign.start,
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w500),
+                                      ),
+                                    ),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      IHelpers.openMap('https://flutter.dev');
+                                    },
+                                    child: Container(
+                                      height: double.infinity,
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 7.5),
+                                      decoration: BoxDecoration(
+                                        color: IColors.primary.withOpacity(0.8),
+                                        borderRadius: BorderRadius.only(
+                                          bottomRight: Radius.circular(10.0),
+                                        ),
+                                      ),
+                                      child: Icon(
+                                        Iconsax.map_1,
+                                        color: IColors.white,
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
                           ),
-                          IButton(
-                              onTap: () {
-                                openMap('https://flutter.dev');
-                              },
-                              icon: Iconsax.map_1,
-                              height: 35,
-                              margin: 0.0,
-                              text: "Maps")
+                          // IButton(
+                          //     icon: Iconsax.map_1,
+                          //     height: 35,
+                          //     margin: 0.0,
+                          //     text: "Open maps")
                         ],
                       ),
                     );
@@ -116,13 +144,6 @@ class PlacesScreen extends StatelessWidget {
         )),
       ),
     );
-  }
-
-  void openMap(String mapUrl) async {
-    final Uri _url = Uri.parse(mapUrl);
-    if (!await launchUrl(_url)) {
-      throw Exception('Could not launch $_url');
-    }
   }
 
   void showImageDialog(BuildContext context, String imageUrl) {

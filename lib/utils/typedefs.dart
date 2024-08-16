@@ -19,3 +19,21 @@ enum JsonLists {
 
   const JsonLists(this.name, this.url);
 }
+
+enum RecencyLabel {
+  Today('Today'),
+  Yesterday('Yesterday'),
+  Old('Old');
+
+  final String label;
+  const RecencyLabel(this.label);
+}
+
+enum JsonObjects {
+  user,
+  schedule,
+  places,
+  events,
+  notifications,
+  faqs,
+}

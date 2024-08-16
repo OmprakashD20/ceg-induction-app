@@ -5,6 +5,7 @@ import 'package:induction_app/common/widgets/button.dart';
 import 'package:induction_app/common/widgets/snackbar.dart';
 import 'package:induction_app/features/authentication/helpers.dart';
 import 'package:induction_app/features/authentication/widgets/header.dart';
+import 'package:induction_app/features/ceg/help/help.dart';
 import 'package:induction_app/features/ceg/home/home.dart';
 import 'package:induction_app/features/ceg/navigation.dart';
 import 'package:induction_app/utils/color.dart';
@@ -33,7 +34,10 @@ class _AuthFormState extends State<AuthForm> {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         floatingActionButton: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () =>
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return HelpScreen();
+          })),
           backgroundColor: IColors.darkBlue,
           child: Icon(
             Iconsax.message_question,

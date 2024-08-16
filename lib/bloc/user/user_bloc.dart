@@ -3,6 +3,7 @@ import "package:flutter_bloc/flutter_bloc.dart";
 import "package:induction_app/repository/user_repository.dart";
 
 import "../../models/models.dart";
+import "../../utils/typedefs.dart";
 
 part 'user_event.dart';
 part 'user_state.dart';
@@ -12,29 +13,25 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
   UserBloc({UserRepository? userRepository})
       : _userRepository = userRepository ?? UserRepository(),
-        super(const UserInitial()) {
+        super(UserInitial()) {
     on<UserLogin>(_onUserLogin);
     on<FetchUserJson>(_onFetchUserJson);
-    on<FetchScheduleJson>(_onFetchScheduleJson);
-    on<FetchPlacesJson>(_onFetchPlacesJson);
-    on<FetchNotificationsJson>(_onFetchNotificationsJson);
-    on<FetchFAQJson>(_onFetchFAQJson);
-    on<FetchEventsJson>(_onFetchEventsJson);
+    on<FetchData>(_onFetchData);
   }
 
   void _onUserLogin(UserLogin event, Emitter<UserState> emit) {
     String rollNo = event.username;
     String password = event.password;
 
-    emit(const UserLoading());
+    emit(UserLoading());
 
     if (rollNo.isEmpty) {
-      return emit(const UserError("Roll number cannot be empty"));
+      return emit(UserError("Roll number cannot be empty"));
     }
 
     _userRepository.fetchUser(rollNo: rollNo).then((user) {
       if (user.dob != password || user.rollNo != rollNo) {
-        emit(const UserError("Invalid credentials"));
+        emit(UserError("Invalid credentials"));
         return;
       }
 
@@ -47,10 +44,10 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   void _onFetchUserJson(FetchUserJson event, Emitter<UserState> emit) {
     String rollNo = event.rollNo;
 
-    emit(const UserLoading());
+    emit(UserLoading());
 
     if (rollNo.isEmpty) {
-      return emit(const UserError("Roll number cannot be empty"));
+      return emit(UserError("Roll number cannot be empty"));
     }
 
     _userRepository.fetchUser(rollNo: rollNo).then((user) {
@@ -60,55 +57,63 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     });
   }
 
-  void _onFetchScheduleJson(FetchScheduleJson event, Emitter<UserState> emit) {
-    final String batchId = event.batchId;
-    emit(const UserLoading());
+  Future<void> _onFetchData(FetchData event, Emitter<UserState> emit) async {
+    emit(UserLoading());
 
-    _userRepository.fetchSchedule().then((schedule) {
-      emit(ScheduleLoaded(batchId: batchId, schedule: schedule));
-    }).catchError((e) {
-      emit(UserError(e.toString()));
-    });
-  }
+    final List<Future<dynamic>> futures = [];
 
-  void _onFetchPlacesJson(FetchPlacesJson event, Emitter<UserState> emit) {
-    emit(const UserLoading());
+    Future<UserModel?>? userFuture;
+    ScheduleModel? schedule;
+    List<PlaceModel>? places;
+    List<EventModel>? events;
+    List<NotificationModel>? notifications;
+    List<FAQModel>? faqs;
 
-    _userRepository.fetchPlaces().then((places) {
-      emit(PlacesLoaded(places: places));
-    }).catchError((e) {
-      emit(UserError(e.toString()));
-    });
-  }
+    // if (event.jsonObjects.contains(JsonObjects.user) &&
+    //     event.rollNo.isNotEmpty) {
+    //   userFuture = _userRepository.fetchUser(rollNo: event.rollNo);
+    //   futures.add(userFuture);
+    // }
+    if (event.jsonObjects.contains(JsonObjects.schedule)) {
+      futures.add(
+          _userRepository.fetchSchedule().then((value) => schedule = value));
+    }
+    if (event.jsonObjects.contains(JsonObjects.places)) {
+      futures
+          .add(_userRepository.fetchPlaces().then((value) => places = value));
+    }
+    if (event.jsonObjects.contains(JsonObjects.events)) {
+      futures
+          .add(_userRepository.fetchEvents().then((value) => events = value));
+    }
+    if (event.jsonObjects.contains(JsonObjects.notifications)) {
+      futures.add(_userRepository.fetchNotifications().then((value) {
+        notifications = NotificationModel.processNotifications(value);
+      }));
+    }
+    if (event.jsonObjects.contains(JsonObjects.faqs)) {
+      futures.add(_userRepository.fetchFAQs().then((value) => faqs = value));
+    }
 
-  void _onFetchNotificationsJson(
-      FetchNotificationsJson event, Emitter<UserState> emit) {
-    emit(const UserLoading());
+    try {
+      await Future.wait(futures);
+      final user = userFuture != null ? await userFuture : state.user;
 
-    _userRepository.fetchNotifications().then((notifications) {
-      emit(NotificationsLoaded(notifications: notifications));
-    }).catchError((e) {
-      emit(UserError(e.toString()));
-    });
-  }
-
-  void _onFetchFAQJson(FetchFAQJson event, Emitter<UserState> emit) {
-    emit(const UserLoading());
-
-    _userRepository.fetchFAQs().then((faqs) {
-      emit(FAQLoaded(faqs: faqs));
-    }).catchError((e) {
-      emit(UserError(e.toString()));
-    });
-  }
-
-  void _onFetchEventsJson(FetchEventsJson event, Emitter<UserState> emit) {
-    emit(const UserLoading());
-
-    _userRepository.fetchEvents().then((events) {
-      emit(EventsLoaded(events: events));
-    }).catchError((e) {
-      emit(UserError(e.toString()));
-    });
+      if (!emit.isDone) {
+        emit(UserLoaded(
+          user!,
+          schedule: schedule,
+          places: places,
+          events: events,
+          notifications: notifications,
+          faqs: faqs,
+        ));
+      }
+    } catch (e) {
+      if (!emit.isDone) {
+        print(e);
+        emit(UserError(e.toString()));
+      }
+    }
   }
 }

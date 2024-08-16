@@ -78,9 +78,7 @@ class SpecialAnnouncementModel extends Equatable {
   factory SpecialAnnouncementModel.fromMap(Map<String, dynamic> map) {
     return SpecialAnnouncementModel(
       available: map['available'] as bool,
-      paths: List<String>.from(
-        (map['paths'] as List<String>),
-      ),
+      paths: List<String>.from(map['paths']),
     );
   }
 
@@ -167,6 +165,15 @@ class DateModel extends Equatable {
     );
   }
 
+  factory DateModel.empty() {
+    return const DateModel(
+      date: '',
+      available: false,
+      holiday: false,
+      hours: [],
+    );
+  }
+
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'date': date,
@@ -203,12 +210,14 @@ class HourModel extends Equatable {
   final String endTime;
   final String programName;
   final String programDetails;
+  final String venue;
 
   const HourModel({
     required this.startTime,
     required this.endTime,
     required this.programName,
     required this.programDetails,
+    required this.venue,
   });
 
   HourModel copyWith({
@@ -216,12 +225,24 @@ class HourModel extends Equatable {
     String? endTime,
     String? programName,
     String? programDetails,
+    String? venue,
   }) {
     return HourModel(
       startTime: startTime ?? this.startTime,
       endTime: endTime ?? this.endTime,
       programName: programName ?? this.programName,
       programDetails: programDetails ?? this.programDetails,
+      venue: venue ?? this.venue,
+    );
+  }
+
+  factory HourModel.empty() {
+    return const HourModel(
+      startTime: '',
+      endTime: '',
+      programName: '',
+      programDetails: '',
+      venue: '',
     );
   }
 
@@ -231,6 +252,7 @@ class HourModel extends Equatable {
       'endTime': endTime,
       'programName': programName,
       'programDetails': programDetails,
+      'venue': venue,
     };
   }
 
@@ -240,6 +262,7 @@ class HourModel extends Equatable {
       endTime: map['endTime'] as String,
       programName: map['programName'] as String,
       programDetails: map['programDetails'] as String,
+      venue: map['venue'] as String,
     );
   }
 
@@ -249,5 +272,6 @@ class HourModel extends Equatable {
       HourModel.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
-  List<Object> get props => [startTime, endTime, programName, programDetails];
+  List<Object> get props =>
+      [startTime, endTime, programName, programDetails, venue];
 }

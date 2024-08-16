@@ -71,7 +71,6 @@ class UserRepository {
       throw DataNotFoundException(message: l.message);
     }, (placesJson) {
       final jsonData = json.decode(placesJson) as Map<String, dynamic>;
-
       return List<PlaceModel>.from(
         (jsonData['places'] as List).map(
           (place) => PlaceModel.fromMap(place),

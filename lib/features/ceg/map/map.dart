@@ -35,12 +35,20 @@ class CEGMapScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10.0)),
             child: Column(
               children: [
-                Container(
-                  color: Colors.red,
-                  child: Image.asset(
+                FadeInImage(
+                  placeholder: AssetImage(
+                    MediaStrings.loader,
+                  ),
+                  image: AssetImage(
                     MediaStrings.map,
                   ),
                 ),
+                // Container(
+                //   //color: Colors.red,
+                //   child: Image.asset(
+                //     MediaStrings.map,
+                //   ),
+                // ),
                 IButton(
                   onTap: () {
                     Navigator.push(

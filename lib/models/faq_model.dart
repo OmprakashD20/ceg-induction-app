@@ -5,26 +5,30 @@ import 'package:equatable/equatable.dart';
 class FAQModel extends Equatable {
   final String question;
   final String answer;
+  bool isExpanded;
 
-  const FAQModel({
+  FAQModel({
     required this.question,
     required this.answer,
+    this.isExpanded = false,
   });
 
   FAQModel copyWith({
     String? question,
     String? answer,
+    bool? isExpanded,
   }) {
     return FAQModel(
       question: question ?? this.question,
       answer: answer ?? this.answer,
+      isExpanded: isExpanded ?? this.isExpanded,
     );
   }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'question': question,
-      'answer': answer,
+      'answer': answer, 
     };
   }
 
@@ -41,5 +45,5 @@ class FAQModel extends Equatable {
       FAQModel.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
-  List<Object> get props => [question, answer];
+  List<Object> get props => [question, answer, isExpanded];
 }

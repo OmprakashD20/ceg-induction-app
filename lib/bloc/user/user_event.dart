@@ -1,32 +1,37 @@
 part of 'user_bloc.dart';
 
-sealed class UserEvent {}
+sealed class UserEvent extends Equatable {
+  const UserEvent();
 
-//auth event
+  @override
+  List<Object?> get props => [];
+}
+
 class UserLogin extends UserEvent {
   final String username;
   final String password;
 
-  UserLogin({required this.username, required this.password});
+  const UserLogin({required this.username, required this.password});
+
+  @override
+  List<Object?> get props => [username, password];
 }
 
-//fetching JSON events
 class FetchUserJson extends UserEvent {
   final String rollNo;
 
-  FetchUserJson({required this.rollNo});
+  const FetchUserJson({required this.rollNo});
+
+  @override
+  List<Object?> get props => [rollNo];
 }
 
-class FetchScheduleJson extends UserEvent {
-  final String batchId;
+class FetchData extends UserEvent {
+  final String rollNo;
+  final List<JsonObjects> jsonObjects;
 
-  FetchScheduleJson({required this.batchId});
+  const FetchData({
+    this.rollNo = '',
+    this.jsonObjects = JsonObjects.values,
+  });
 }
-
-class FetchPlacesJson extends UserEvent {}
-
-class FetchEventsJson extends UserEvent {}
-
-class FetchNotificationsJson extends UserEvent {}
-
-class FetchFAQJson extends UserEvent {}

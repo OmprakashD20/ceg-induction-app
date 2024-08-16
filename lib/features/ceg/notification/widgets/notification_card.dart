@@ -3,23 +3,23 @@ import 'package:iconsax/iconsax.dart';
 import 'package:induction_app/utils/color.dart';
 import 'package:induction_app/utils/device/device_utils.dart';
 
-class MessageNotifCard extends StatelessWidget {
+class NotificationCard extends StatelessWidget {
   final String title;
   final String content;
   final String date;
   final String time;
-  final String receiveStatus;
-  final bool receiveStatusFirst;
+  final String recencyLabel;
+  final bool isFirstInGroup;
   final bool isAlerts;
   final int index;
-  const MessageNotifCard({
+  const NotificationCard({
     super.key,
     required this.title,
     required this.content,
     required this.date,
     required this.time,
-    required this.receiveStatus,
-    required this.receiveStatusFirst,
+    required this.recencyLabel,
+    required this.isFirstInGroup,
     this.isAlerts = false,
     required this.index,
   });
@@ -29,16 +29,16 @@ class MessageNotifCard extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        //if recievestatus first is true then display today yesterday old
-        if (receiveStatusFirst) ...[
+        if (isFirstInGroup) ...[
           Padding(
             padding:
                 const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-            child: Text(receiveStatus,
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
+            child: Text(recencyLabel,
+                style:
+                    const TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
           ),
         ],
-        if (!receiveStatusFirst && !isAlerts)
+        if (!isFirstInGroup && !isAlerts)
           Divider(
             thickness: 1.1,
             indent: 20.0,
@@ -55,22 +55,22 @@ class MessageNotifCard extends StatelessWidget {
                 width: 40.0,
                 height: 40.0,
                 decoration: BoxDecoration(
-                    color: (receiveStatus == "Today")
+                    color: (recencyLabel == "Today")
                         ? IColors.success.withOpacity(0.25)
-                        : (receiveStatus == "Yesterday")
+                        : (recencyLabel == "Yesterday")
                             ? IColors.warning.withOpacity(0.25)
                             : IColors.error.withOpacity(0.25),
                     shape: BoxShape.circle),
                 child: Center(
                     child: Icon(
-                  (receiveStatus == "Today")
+                  (recencyLabel == "Today")
                       ? Iconsax.message_2
-                      : (receiveStatus == "Yesterday")
+                      : (recencyLabel == "Yesterday")
                           ? Iconsax.message_tick
                           : Iconsax.message_time,
-                  color: (receiveStatus == "Today")
+                  color: (recencyLabel == "Today")
                       ? IColors.success
-                      : (receiveStatus == "Yesterday")
+                      : (recencyLabel == "Yesterday")
                           ? IColors.warning
                           : IColors.error,
                 )),
@@ -90,25 +90,31 @@ class MessageNotifCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(title,
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
+                  Text(
+                    title,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
                   //content
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 5.0),
                     child: Text(
                       content,
                       maxLines: 10,
-                      style: TextStyle(
-                          fontSize: 15,
-                          // fontWeight: FontWeight.w500,
-                          color: IColors.darkerGrey),
+                      style: const TextStyle(
+                        fontSize: 15,
+                        // fontWeight: FontWeight.w500,
+                        color: IColors.darkerGrey,
+                      ),
                     ),
                   ),
                   Text(
                     "$date  $time",
                     maxLines: 10,
-                    style: TextStyle(fontSize: 14, color: IColors.darkGrey),
+                    style:
+                        const TextStyle(fontSize: 14, color: IColors.darkGrey),
                   )
                 ],
               ),

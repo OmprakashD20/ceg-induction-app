@@ -1,24 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:induction_app/features/ceg/home/widgets/carousel_card.dart';
+import 'package:induction_app/models/models.dart';
 import 'package:induction_app/utils/color.dart';
-import 'package:induction_app/utils/device/device_utils.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
 class DayEventsSchedule extends StatelessWidget {
-  DayEventsSchedule({super.key, required this.index});
-  int index;
+  final int index;
+  final DateModel daySchedule;
+  const DayEventsSchedule(
+      {super.key, required this.index, required this.daySchedule});
   @override
   Widget build(BuildContext context) {
-    return Container(
-        // color: IColors.accentListColors[index],
-        child: Column(
+    return Column(
       children: [
         Expanded(
           child: ListView.builder(
-              padding: EdgeInsets.only(bottom: 100.0),
-              itemCount: 5,
+              padding: const EdgeInsets.only(bottom: 100.0),
+              itemCount: daySchedule.hours.length,
               itemBuilder: (context, index) {
                 bool isCurrent = index == 1;
                 return TimelineTile(
@@ -27,24 +26,26 @@ class DayEventsSchedule extends StatelessWidget {
                     isFirst: index == 0,
                     isLast: index == 4,
                     beforeLineStyle:
-                        LineStyle(color: IColors.primary, thickness: 2),
+                        const LineStyle(color: IColors.primary, thickness: 2),
                     afterLineStyle:
-                        LineStyle(color: IColors.primary, thickness: 2),
+                        const LineStyle(color: IColors.primary, thickness: 2),
                     indicatorStyle: IndicatorStyle(
                       height: isCurrent ? 25.0 : 15.0,
                       width: isCurrent ? 25.0 : 15.0,
                       indicator: Container(
-                          padding: EdgeInsets.all(2.5),
+                          padding: const EdgeInsets.all(2.5),
                           decoration: BoxDecoration(
-                              color: IColors.lightestBlue,
-                              border:
-                                  Border.all(color: IColors.primary, width: 2),
-                              shape: BoxShape.circle),
+                            color: IColors.lightestBlue,
+                            border:
+                                Border.all(color: IColors.primary, width: 2),
+                            shape: BoxShape.circle,
+                          ),
                           child: isCurrent
                               ? Container(
-                                  decoration: BoxDecoration(
-                                      color: IColors.primary,
-                                      shape: BoxShape.circle),
+                                  decoration: const BoxDecoration(
+                                    color: IColors.primary,
+                                    shape: BoxShape.circle,
+                                  ),
                                 )
                               : null),
                     ),
@@ -53,11 +54,13 @@ class DayEventsSchedule extends StatelessWidget {
                       child: CarouselCard(
                         isStatusNeeded: isCurrent,
                         isBlueCard: isCurrent,
+                        program: daySchedule.hours[index],
+                        date: daySchedule.date,
                       ),
                     ));
               }),
         ),
       ],
-    ));
+    );
   }
 }

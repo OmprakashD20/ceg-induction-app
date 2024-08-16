@@ -6,7 +6,7 @@ import 'package:induction_app/models/models.dart';
 import 'package:induction_app/utils/color.dart';
 import 'package:induction_app/utils/strings.dart';
 
-import '../../../../common/widgets/circular_image.dart';
+import '../../../../common/widgets/profile_avatar.dart';
 
 class UserInfoSection extends StatelessWidget {
   const UserInfoSection({
@@ -21,21 +21,7 @@ class UserInfoSection extends StatelessWidget {
       decoration: BoxDecoration(
         //color: Color.fromARGB(255, 238, 241, 245), // Same as background color
         color: Colors.white,
-        borderRadius: BorderRadius.circular(15.0),
-        // boxShadow: [
-        //   BoxShadow(
-        //     color: Color.fromARGB(255, 219, 219, 219),
-        //     offset: const Offset(5, 5),
-        //     blurRadius: 15,
-        //     spreadRadius: 1,
-        //   ),
-        //   const BoxShadow(
-        //     color: Colors.white,
-        //     offset: Offset(-5, -5),
-        //     blurRadius: 15,
-        //     spreadRadius: 1,
-        //   ),
-        // ],
+        borderRadius: BorderRadius.circular(10.0),
       ),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Container(
@@ -49,13 +35,9 @@ class UserInfoSection extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SCircularImage(
-                  height: 80.0,
-                  width: 80.0,
-                  image: MediaStrings.user,
-                ),
-                const SizedBox(
-                  height: 10,
+                ProfileAvatar(
+                  width: 200.0,
+                  isMale: (user.gender == "Male"),
                 ),
                 Text(
                   user.name,

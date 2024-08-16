@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:induction_app/common/widgets/circular_image.dart';
+import 'package:induction_app/common/widgets/profile_avatar.dart';
 import 'package:induction_app/common/widgets/screen_app_bar.dart';
 import 'package:induction_app/features/authentication/widgets/screen_background.dart';
 import 'package:induction_app/features/ceg/profile/widgets/user_info_section.dart';
@@ -13,7 +13,7 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final UserModel user = UserModel(
-      name: 'John Doe',
+      name: 'Tyler Durden',
       branch: 'BE',
       dept: 'Computer Science and Engineering',
       batchId: '2024',

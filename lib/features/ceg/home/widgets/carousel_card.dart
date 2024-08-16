@@ -1,22 +1,64 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:induction_app/common/widgets/small_button.dart';
+import 'package:induction_app/models/models.dart';
 import 'package:induction_app/utils/color.dart';
 import 'package:induction_app/utils/device/device_utils.dart';
+import 'package:intl/intl.dart';
 
 class CarouselCard extends StatelessWidget {
-  CarouselCard(
-      {super.key, this.isStatusNeeded = true, this.isBlueCard = false});
-  bool isStatusNeeded;
-  bool isBlueCard;
+  final HourModel program;
+  final bool isStatusNeeded;
+  final bool isBlueCard;
+  final String date;
+  const CarouselCard({
+    super.key,
+    this.isStatusNeeded = true,
+    this.isBlueCard = false,
+    required this.program,
+    required this.date,
+  });
+
+  String formatDate(String dateStr) {
+    final DateFormat inputFormat = DateFormat('yyyy-MM-dd');
+    final DateTime date = inputFormat.parse(dateStr);
+
+    final DateTime today = DateTime.now();
+    final DateTime tomorrow = today.add(Duration(days: 1));
+
+    if (date.year == today.year &&
+        date.month == today.month &&
+        date.day == today.day) {
+      return 'Today';
+    } else if (date.year == tomorrow.year &&
+        date.month == tomorrow.month &&
+        date.day == tomorrow.day) {
+      return 'Tomorrow';
+    } else {
+      final DateFormat outputFormat = DateFormat('MMM d, yyyy');
+      return outputFormat.format(date);
+    }
+  }
+
+  String formatTimeRange(String startTime, String endTime) {
+    final DateFormat inputFormat = DateFormat('HH:mm');
+    final DateFormat outputFormat = DateFormat('h:mma');
+
+    final DateTime startDateTime = inputFormat.parse(startTime);
+    final DateTime endDateTime = inputFormat.parse(endTime);
+
+    final String formattedStartTime =
+        outputFormat.format(startDateTime).toLowerCase();
+    final String formattedEndTime =
+        outputFormat.format(endDateTime).toLowerCase();
+
+    return '$formattedStartTime to $formattedEndTime';
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
       width: IDeviceUtils.getScreenWidth(context) * 0.8,
-      // margin: const EdgeInsets.symmetric(
-      //   horizontal: 10.0,
-      //   vertical: 10.0,
-      // ),
       padding: const EdgeInsets.symmetric(
         horizontal: 10.0,
         vertical: 10.0,
@@ -34,59 +76,62 @@ class CarouselCard extends StatelessWidget {
             children: [
               if (isStatusNeeded)
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5.0),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 5.0),
                   decoration: BoxDecoration(
-                      color: isBlueCard
-                          ? IColors.success.withOpacity(0.9)
-                          : IColors.success,
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Center(
+                    color: isBlueCard
+                        ? IColors.success.withOpacity(0.9)
+                        : IColors.success,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: const Center(
                     child: Text(
                       "Now",
                       style: TextStyle(
-                          color: IColors.lightGrey,
-                          fontWeight: FontWeight.w600),
+                        color: IColors.lightGrey,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
                 ),
               Padding(
                 padding: const EdgeInsets.only(top: 5.0),
                 child: IconText(
-                  text: "09:00AM - 10:00AM",
+                  text: formatTimeRange(program.startTime, program.endTime),
                   icon: Iconsax.clock,
                   isBlue: isBlueCard,
                 ),
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 10.0,
           ),
           Text(
-            "Meeting by Department of Computer Science",
+            program.programName,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
-                color:
-                    isBlueCard ? Colors.white.withOpacity(0.9) : IColors.black,
-                fontSize: 16,
-                fontWeight: FontWeight.w600),
+              color: isBlueCard ? Colors.white.withOpacity(0.9) : IColors.black,
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+            ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 5.0,
           ),
           IconText(
             icon: Iconsax.location5,
-            text: "Vivek Auditorium",
+            text: program.venue,
             big: true,
             isBlue: isBlueCard,
           ),
-          Spacer(),
+          const Spacer(),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               IconText(
-                text: "Aug 12,2023",
+                text: formatDate(date),
                 isBlue: isBlueCard,
               ),
               ISmallButton(),
@@ -98,15 +143,16 @@ class CarouselCard extends StatelessWidget {
   }
 }
 
-Widget IconText(
-    {IconData? icon,
-    required String text,
-    bool big = false,
-    bool isBlue = false}) {
+Widget IconText({
+  IconData? icon,
+  required String text,
+  bool big = false,
+  bool isBlue = false,
+}) {
   return Row(
     children: [
       icon == null
-          ? SizedBox()
+          ? const SizedBox()
           : Icon(
               icon,
               color: big
@@ -118,7 +164,7 @@ Widget IconText(
                       : IColors.darkGrey,
               size: 20.0,
             ),
-      SizedBox(
+      const SizedBox(
         width: 5.0,
       ),
       Text(

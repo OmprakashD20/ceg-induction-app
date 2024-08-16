@@ -55,7 +55,7 @@ class BentoGridView extends StatelessWidget {
               ),
             ),
           ),
-          StaggeredGridTile.count(
+          const StaggeredGridTile.count(
             crossAxisCellCount: 1,
             mainAxisCellCount: 11,
             child: SizedBox(),
@@ -64,8 +64,10 @@ class BentoGridView extends StatelessWidget {
             crossAxisCellCount: 11,
             mainAxisCellCount: 5,
             child: BigGridBox(
-              onTap: () => Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => MapFullScreen())),
+              onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const MapFullScreen())),
               title: "CEG Map",
               subTitle: "View campus\nmap.",
               image: Positioned(
@@ -83,7 +85,7 @@ class BentoGridView extends StatelessWidget {
               ),
             ),
           ),
-          StaggeredGridTile.count(
+          const StaggeredGridTile.count(
             crossAxisCellCount: 11,
             mainAxisCellCount: 1,
             child: SizedBox(),
@@ -98,7 +100,7 @@ class BentoGridView extends StatelessWidget {
               subTitle: "Clear your doubts.",
             ),
           ),
-          StaggeredGridTile.count(
+          const StaggeredGridTile.count(
             crossAxisCellCount: 1,
             mainAxisCellCount: 4,
             child: SizedBox(),
@@ -108,12 +110,12 @@ class BentoGridView extends StatelessWidget {
             mainAxisCellCount: 5,
             child: SmallGridBox(
               onTap: () => Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => HelpScreen())),
+                  MaterialPageRoute(builder: (context) => const HelpScreen())),
               title: "Help",
               subTitle: "Stuck\nsomewhere?",
             ),
           ),
-          StaggeredGridTile.count(
+          const StaggeredGridTile.count(
             crossAxisCellCount: 18,
             mainAxisCellCount: 1,
             child: SizedBox(),
@@ -122,8 +124,12 @@ class BentoGridView extends StatelessWidget {
             crossAxisCellCount: 10,
             mainAxisCellCount: 6,
             child: BigGridBox(
-              onTap: () => Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => PlacesScreen())),
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const PlacesScreen(),
+                ),
+              ),
               title: "CEG Places",
               subTitle: "Explore\ncampus.",
               image: Positioned(
@@ -141,7 +147,7 @@ class BentoGridView extends StatelessWidget {
               ),
             ),
           ),
-          StaggeredGridTile.count(
+          const StaggeredGridTile.count(
             crossAxisCellCount: 1,
             mainAxisCellCount: 2,
             child: SizedBox(),
@@ -201,13 +207,13 @@ class SmallGridBox extends StatelessWidget {
             Text(
               title,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
             ),
             Text(
               subTitle,
               overflow: TextOverflow.ellipsis,
               maxLines: 2,
-              style: TextStyle(fontSize: 13, color: IColors.darkerGrey),
+              style: const TextStyle(fontSize: 13, color: IColors.darkerGrey),
             ),
           ],
         ),
@@ -238,7 +244,7 @@ class BigGridBox extends StatelessWidget {
         child: Stack(
           children: [
             ClipRRect(
-              borderRadius: BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(10),
                   bottomRight: Radius.circular(10)),
               child: Stack(
@@ -252,11 +258,13 @@ class BigGridBox extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                    style: const TextStyle(
+                        fontSize: 16, fontWeight: FontWeight.w600),
                   ),
                   Text(
                     subTitle,
-                    style: TextStyle(fontSize: 13, color: IColors.darkerGrey),
+                    style: const TextStyle(
+                        fontSize: 13, color: IColors.darkerGrey),
                   ),
                 ],
               ),

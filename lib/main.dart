@@ -62,7 +62,6 @@ class MyApp extends StatelessWidget {
         ),
       ),
       home: BlocBuilder<ConnectivityBloc, ConnectivityState>(
-            bloc: context.read<ConnectivityBloc>(),
             builder: (context, state) {
               if (state is ConnectivityInitial) {
                 return const Text('Checking connectivity...');
