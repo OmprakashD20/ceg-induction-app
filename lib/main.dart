@@ -1,26 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:induction_app/common/widgets/loader.dart';
 import 'package:induction_app/common/widgets/snackbar.dart';
 import 'package:induction_app/features/onboarding/onboarding.dart';
 import 'package:induction_app/utils/color.dart';
-import 'package:induction_app/utils/strings.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:induction_app/bloc/connectivity/connectivity_bloc.dart';
-import 'package:induction_app/bloc/user/user_bloc.dart';
-import 'package:induction_app/repository/user_repository.dart';
-
-import './features/onboarding/onboarding.dart';
-import './utils/color.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent, // transparent status bar
   ));
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) {
-    runApp(App());
+    runApp(const App());
   });
 }
 

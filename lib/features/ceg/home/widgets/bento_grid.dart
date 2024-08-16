@@ -1,6 +1,8 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+
 import 'package:induction_app/features/ceg/events/events.dart';
 import 'package:induction_app/features/ceg/faqs/faq.dart';
 import 'package:induction_app/features/ceg/help/help.dart';
@@ -10,7 +12,6 @@ import 'package:induction_app/features/ceg/profile/profile.dart';
 import 'package:induction_app/features/ceg/schedule/schedule.dart';
 import 'package:induction_app/utils/color.dart';
 import 'package:induction_app/utils/strings.dart';
-import 'dart:math' as math;
 
 class BentoGridView extends StatelessWidget {
   const BentoGridView({
@@ -45,7 +46,7 @@ class BentoGridView extends StatelessWidget {
                 bottom: -gridUnit * 1,
                 right: -gridUnit * 1,
                 left: 0,
-                child: Container(
+                child: SizedBox(
                   //color: Colors.red,
                   height: gridUnit * 6,
                   child: Image.asset(
@@ -64,7 +65,7 @@ class BentoGridView extends StatelessWidget {
           StaggeredGridTile.count(
             crossAxisCellCount: 11,
             mainAxisCellCount: 5,
-            child: BigGridBox(
+            child: IGridBox(
               onTap: () => Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -74,7 +75,7 @@ class BentoGridView extends StatelessWidget {
               image: Positioned(
                 bottom: -gridUnit * 3.75,
                 right: -gridUnit * 1,
-                child: Container(
+                child: SizedBox(
                   //color: Colors.red,
                   width: gridUnit * 10,
                   child: Image.asset(
@@ -100,6 +101,23 @@ class BentoGridView extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => FAQsScreen())),
               title: "FAQs",
               subTitle: "Clear your doubts.",
+              image: const SizedBox(),
+              // image: Positioned(
+              //   top: 0, right: 0,
+              //   // right: -gridUnit * 2,
+              //   child: Container(
+              //     //color: Colors.red,
+              //     width: gridUnit * 3,
+              //     child: Opacity(
+              //       opacity: 1,
+              //       child: Image.asset(
+              //         MediaStrings.faqBox,
+              //         fit: BoxFit.cover,
+              //         scale: 2.5,
+              //       ),
+              //     ),
+              //   ),
+              // ),
             ),
           ),
           const StaggeredGridTile.count(
@@ -116,6 +134,23 @@ class BentoGridView extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => const HelpScreen())),
               title: "Help",
               subTitle: "Stuck\nsomewhere?",
+              image: const SizedBox(),
+              // image: Positioned(
+              //   top: 0,
+              //   right: 0,
+              //   child: Container(
+              //     //color: Colors.red,
+              //     width: gridUnit * 2.5,
+              //     child: Opacity(
+              //       opacity: 1,
+              //       child: Image.asset(
+              //         MediaStrings.helpBox,
+              //         fit: BoxFit.cover,
+              //         scale: 2.5,
+              //       ),
+              //     ),
+              //   ),
+              // ),
             ),
           ),
           const StaggeredGridTile.count(
@@ -126,19 +161,17 @@ class BentoGridView extends StatelessWidget {
           StaggeredGridTile.count(
             crossAxisCellCount: 10,
             mainAxisCellCount: 6,
-            child: BigGridBox(
+            child: IGridBox(
               onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const PlacesScreen(),
-                ),
-              ),
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const PlacesScreen())),
               title: "CEG Places",
               subTitle: "Explore\ncampus.",
               image: Positioned(
                 bottom: -gridUnit * 1.60,
                 right: -gridUnit * 2,
-                child: Container(
+                child: SizedBox(
                   //color: Colors.red,
                   width: gridUnit * 12.5,
                   child: Image.asset(
@@ -170,7 +203,7 @@ class BentoGridView extends StatelessWidget {
               image: Positioned(
                 bottom: -gridUnit * 1.5,
                 right: -gridUnit * 4,
-                child: Container(
+                child: SizedBox(
                     //color: Colors.red,
                     width: gridUnit * 10,
                     child: Transform.rotate(
@@ -183,7 +216,7 @@ class BentoGridView extends StatelessWidget {
               ),
             ),
           ),
-          StaggeredGridTile.count(
+          const StaggeredGridTile.count(
             crossAxisCellCount: 18,
             mainAxisCellCount: 1,
             child: SizedBox(),
@@ -195,7 +228,7 @@ class BentoGridView extends StatelessWidget {
               onTap: () => Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => EventsScreen(
+                      builder: (context) => const EventsScreen(
                             automaticallyImplyLeading: true,
                           ))),
               title: "Events",
@@ -204,7 +237,7 @@ class BentoGridView extends StatelessWidget {
                 // bottom: -gridUnit * 1,
                 right: 0,
                 // left: 0,
-                child: Container(
+                child: SizedBox(
                   //color: Colors.red,
                   height: gridUnit * 6,
                   child: Image.asset(
@@ -222,18 +255,18 @@ class BentoGridView extends StatelessWidget {
 }
 
 class IGridBox extends StatelessWidget {
-  IGridBox(
+  const IGridBox(
       {super.key,
       required this.title,
       required this.subTitle,
       required this.image,
       this.isSmall = false,
       this.onTap});
-  String title;
-  String subTitle;
-  VoidCallback? onTap;
-  Widget image;
-  bool isSmall;
+  final String title;
+  final String subTitle;
+  final VoidCallback? onTap;
+  final Widget image;
+  final bool isSmall;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -261,13 +294,13 @@ class IGridBox extends StatelessWidget {
                     title,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                    style: const TextStyle(
+                        fontSize: 16, fontWeight: FontWeight.w600),
                   ),
                   Text(
                     subTitle,
                     overflow: TextOverflow.ellipsis,
                     maxLines: isSmall ? 2 : 4,
-                    style: TextStyle(fontSize: 13, color: IColors.darkerGrey),
                     style: const TextStyle(
                         fontSize: 13, color: IColors.darkerGrey),
                   ),
