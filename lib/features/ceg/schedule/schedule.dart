@@ -3,20 +3,22 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:induction_app/bloc/user/user_bloc.dart';
 import 'package:induction_app/common/handler/connectivity_handler.dart';
+import 'package:induction_app/common/widgets/loader.dart';
 import 'package:induction_app/common/widgets/screen_app_bar.dart';
 import 'package:induction_app/common/widgets/small_button.dart';
 import 'package:induction_app/features/authentication/widgets/screen_background.dart';
 import 'package:induction_app/features/ceg/schedule/widgets/tab_item.dart';
 import 'package:induction_app/utils/color.dart';
+import 'package:induction_app/utils/helpers.dart';
 import 'package:induction_app/utils/device/device_utils.dart';
-import 'package:induction_app/utils/typedefs.dart';
-
-import '../../../models/models.dart';
+import 'package:induction_app/utils/preference_manager.dart';
+import 'package:induction_app/utils/strings.dart';
 import 'widgets/day_events_schedule.dart';
 
 class ScheduleScreen extends StatefulWidget {
-  ScheduleScreen({super.key, this.automaticallyImplyLeading = false});
-  bool automaticallyImplyLeading;
+  const ScheduleScreen({super.key, this.automaticallyImplyLeading = false});
+  final bool automaticallyImplyLeading;
+
   @override
   State<ScheduleScreen> createState() => _ScheduleScreenState();
 }
@@ -32,11 +34,43 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
   );
   final days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
   final weeks = [1, 2, 3];
+  final DateTime startDate = DateTime(2024, 8, 14);
+  final DateTime endDate = DateTime(2024, 9, 3);
 
   @override
   void initState() {
-    context.read<UserBloc>().add(const FetchData());
     super.initState();
+    _fetchRollNoAndAddEvent();
+  }
+
+  Future<void> _fetchRollNoAndAddEvent() async {
+    final PreferenceManager prefs = await PreferenceManager.getInstance();
+    final rollNo =
+        IHelpers.extractRightFromEither(prefs.getData<String>("rollNo"))!;
+
+    // ignore: use_build_context_synchronously
+    context.read<UserBloc>().add(FetchData(
+          rollNo: rollNo,
+        ));
+  }
+
+  List<List<String>> generateDates() {
+    List<String> dates = [];
+    DateTime currentDate = startDate;
+
+    while (currentDate.isBefore(endDate) ||
+        currentDate.isAtSameMomentAs(endDate)) {
+      dates.add(currentDate.toIso8601String().split('T').first);
+      currentDate = currentDate.add(const Duration(days: 1));
+    }
+
+    List<List<String>> chunks = [];
+
+    for (int i = 0; i < dates.length; i += 7) {
+      int end = (i + 7 < dates.length) ? i + 7 : dates.length;
+      chunks.add(dates.sublist(i, end));
+    }
+    return chunks;
   }
 
   void onDayItemTapped(int index) {
@@ -60,39 +94,39 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
     });
   }
 
-  //todo: add batchid as a parameter
-  BatchModel getStudentBatch(List<BatchModel> batches) {
-    print(batches);
-    return batches.firstWhere((batch) => batch.batchId == "b1");
-  }
-
-  DateModel getSelectedDate(BatchModel batch) {
-    return batch.dates[selectedDayIndex];
-  }
-
   @override
   Widget build(BuildContext context) {
     return ConnectivityHandler(
       successWidget: BlocBuilder<UserBloc, UserState>(
         builder: (context, state) {
           if (state is UserLoading) {
-            return const Center(child: CircularProgressIndicator());
+            return const ILoaderScreen(
+              content: Constants.loadingLoader,
+            );
           }
           if (state is UserError) {
-            return const Text("Error");
+            return const ILoaderScreen(
+              content: Constants.error404Loader,
+            );
           }
           if (state is UserLoaded) {
+            final user = state.user;
             final schedule = state.schedule;
-            final batch = getStudentBatch(schedule!.batches);
+            final batch =
+                IHelpers.getStudentBatch(schedule!.batches, user.batchId);
+
+            final allDates = generateDates();
+            final availableDates =
+                batch.dates.map((dateModel) => dateModel.date);
             return Scaffold(
               backgroundColor: IColors.lightestBlue,
               body: ScreenBackground(
                 child: Column(children: [
                   //App Bar
                   ScreenAppBar(
-                      text: "Schedule",
-                      automaticallyImplyLeading:
-                          widget.automaticallyImplyLeading),
+                    text: "Schedule",
+                    automaticallyImplyLeading: widget.automaticallyImplyLeading,
+                  ),
                   //Week
                   Padding(
                     padding: const EdgeInsets.symmetric(
@@ -137,7 +171,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                           });
                         },
                         itemCount: weeks.length,
-                        itemBuilder: ((context, index) {
+                        itemBuilder: ((context, weekIndex) {
                           return Column(
                             children: [
                               SizedBox(
@@ -146,14 +180,25 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
-                                    ...List.generate(batch.dates.length,
+                                    ...List.generate(allDates[weekIndex].length,
                                         (index) {
+                                      final dateStr =
+                                          allDates[weekIndex][index];
+                                      final isAvailable =
+                                          availableDates.contains(dateStr);
+                                      final date = DateTime.parse(dateStr);
+                                      final dayIndex =
+                                          allDates[weekIndex].indexOf(dateStr);
                                       return InkWell(
-                                        onTap: () => onDayItemTapped(index),
+                                        onTap: isAvailable
+                                            ? () => onDayItemTapped(dayIndex)
+                                            : null,
                                         child: TabItem(
-                                          index: index,
-                                          isSelected: selectedDayIndex == index,
-                                          days: days[index],
+                                          date: date.day,
+                                          isSelected:
+                                              selectedDayIndex == dayIndex,
+                                          days: days[date.weekday - 1],
+                                          isDisabled: !isAvailable,
                                         ),
                                       );
                                     }),
@@ -172,7 +217,8 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                                     itemBuilder: (context, index) {
                                       return DayEventsSchedule(
                                         index: index,
-                                        daySchedule: getSelectedDate(batch),
+                                        daySchedule: IHelpers.getSelectedDate(
+                                            batch, selectedDayIndex),
                                       );
                                     }),
                               )

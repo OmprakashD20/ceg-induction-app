@@ -15,7 +15,7 @@ class ProfileAvatar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       //color: Colors.red,
-      child: Lottie.asset(isMale ? MediaStrings.male : MediaStrings.female,
+      child: Lottie.asset(isMale ? Constants.male : Constants.female,
           animate: true, width: width, fit: BoxFit.cover),
     );
   }

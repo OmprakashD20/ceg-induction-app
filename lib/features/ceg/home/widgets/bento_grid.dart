@@ -50,7 +50,7 @@ class BentoGridView extends StatelessWidget {
                   //color: Colors.red,
                   height: gridUnit * 6,
                   child: Image.asset(
-                    MediaStrings.scheduleBox,
+                    Constants.scheduleBox,
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -79,7 +79,7 @@ class BentoGridView extends StatelessWidget {
                   //color: Colors.red,
                   width: gridUnit * 10,
                   child: Image.asset(
-                    MediaStrings.cegMapBox,
+                    Constants.cegMapBox,
                     fit: BoxFit.cover,
                     scale: 2.5,
                   ),
@@ -111,7 +111,7 @@ class BentoGridView extends StatelessWidget {
               //     child: Opacity(
               //       opacity: 1,
               //       child: Image.asset(
-              //         MediaStrings.faqBox,
+              //         Constants.faqBox,
               //         fit: BoxFit.cover,
               //         scale: 2.5,
               //       ),
@@ -144,7 +144,7 @@ class BentoGridView extends StatelessWidget {
               //     child: Opacity(
               //       opacity: 1,
               //       child: Image.asset(
-              //         MediaStrings.helpBox,
+              //         Constants.helpBox,
               //         fit: BoxFit.cover,
               //         scale: 2.5,
               //       ),
@@ -175,7 +175,7 @@ class BentoGridView extends StatelessWidget {
                   //color: Colors.red,
                   width: gridUnit * 12.5,
                   child: Image.asset(
-                    MediaStrings.cegPlacesBox,
+                    Constants.cegPlacesBox,
                     fit: BoxFit.cover,
                     scale: 2.5,
                   ),
@@ -209,7 +209,7 @@ class BentoGridView extends StatelessWidget {
                     child: Transform.rotate(
                       angle: -math.pi / 6.0,
                       child: Image.asset(
-                        MediaStrings.profileBox,
+                        Constants.profileBox,
                         fit: BoxFit.cover,
                       ),
                     )),
@@ -241,7 +241,7 @@ class BentoGridView extends StatelessWidget {
                   //color: Colors.red,
                   height: gridUnit * 6,
                   child: Image.asset(
-                    MediaStrings.eventsBox,
+                    Constants.eventsBox,
                     fit: BoxFit.cover,
                   ),
                 ),

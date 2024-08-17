@@ -37,16 +37,16 @@ class CEGMapScreen extends StatelessWidget {
               children: [
                 FadeInImage(
                   placeholder: AssetImage(
-                    MediaStrings.loader,
+                    Constants.loader,
                   ),
                   image: AssetImage(
-                    MediaStrings.map,
+                    Constants.map,
                   ),
                 ),
                 // Container(
                 //   //color: Colors.red,
                 //   child: Image.asset(
-                //     MediaStrings.map,
+                //     Constants.map,
                 //   ),
                 // ),
                 IButton(
@@ -96,10 +96,10 @@ class MapFullScreen extends StatelessWidget {
                   angle: -math.pi / 2,
                   child: FadeInImage(
                     placeholder: AssetImage(
-                      MediaStrings.loader,
+                      Constants.loader,
                     ),
                     image: AssetImage(
-                      MediaStrings.map,
+                      Constants.map,
                     ),
                   ),
                 ),
@@ -147,7 +147,7 @@ class MapFullScreen extends StatelessWidget {
 //                       //     ),
 //                       //   );
 //                       // },
-//                       image: Image.asset(MediaStrings.map).image,
+//                       image: Image.asset(Constants.map).image,
 //                     ),
 //                   ),
 //                   Text("Tap to View Full Screen")

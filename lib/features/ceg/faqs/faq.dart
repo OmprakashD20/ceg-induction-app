@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:induction_app/bloc/user/user_bloc.dart';
 import 'package:induction_app/common/handler/connectivity_handler.dart';
+import 'package:induction_app/common/widgets/loader.dart';
 import 'package:induction_app/common/widgets/screen_app_bar.dart';
 import 'package:induction_app/features/authentication/widgets/screen_background.dart';
 import 'package:induction_app/models/models.dart';
 import 'package:induction_app/utils/color.dart';
-
-import '../../../utils/typedefs.dart';
+import 'package:induction_app/utils/strings.dart';
 
 class FAQsScreen extends StatefulWidget {
   @override
@@ -15,21 +15,26 @@ class FAQsScreen extends StatefulWidget {
 }
 
 class _FAQsScreenState extends State<FAQsScreen> {
-  @override
-  void initState() {
-    context.read<UserBloc>().add(const FetchData());
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   context.read<UserBloc>().add(const FetchData());
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
     return ConnectivityHandler(successWidget: BlocBuilder<UserBloc, UserState>(
       builder: (context, state) {
         if (state is UserLoading) {
-          return const Scaffold(
-            body: Center(child: CircularProgressIndicator()),
+          return const ILoaderScreen(
+            content: Constants.loadingLoader,
           );
-        } else if (state is UserLoaded) {
+        }
+        if (state is UserError) {
+          return const ILoaderScreen(
+            content: Constants.error404Loader,
+          );
+        } if (state is UserLoaded) {
           final faqs = state.faqs;
           return Scaffold(
             backgroundColor: IColors.lightestBlue,
@@ -77,10 +82,6 @@ class _FAQsScreenState extends State<FAQsScreen> {
                 ),
               ),
             ),
-          );
-        } else if (state is UserError) {
-          return const Scaffold(
-            body: Center(child: Text("Error loading data")),
           );
         }
         return Container();

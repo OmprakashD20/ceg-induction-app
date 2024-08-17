@@ -1,26 +1,82 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:induction_app/bloc/user/user_bloc.dart';
+import 'package:induction_app/common/widgets/loader.dart';
 import 'package:induction_app/common/widgets/snackbar.dart';
+import 'package:induction_app/features/authentication/auth.dart';
+import 'package:induction_app/features/ceg/navigation.dart';
 import 'package:induction_app/features/onboarding/onboarding.dart';
+import 'package:induction_app/repository/user_repository.dart';
 import 'package:induction_app/utils/color.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:induction_app/bloc/connectivity/connectivity_bloc.dart';
+import 'package:induction_app/utils/helpers.dart';
+import 'package:induction_app/utils/preference_manager.dart';
+import 'package:induction_app/utils/strings.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    statusBarColor: Colors.transparent, // transparent status bar
-  ));
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent, // transparent status bar
+    ),
+  );
+  //force the app to be in portrait mode
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) {
-    runApp(const App());
+    runApp(const InductionAppProviders());
   });
+}
+
+class InductionAppProviders extends StatelessWidget {
+  const InductionAppProviders({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return RepositoryProvider(
+      create: (context) => UserRepository(),
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => UserBloc(
+              userRepository: context.read<UserRepository>(),
+            ),
+          ),
+          BlocProvider(create: (context) => ConnectivityBloc())
+        ],
+        child: const App(),
+      ),
+    );
+  }
 }
 
 class App extends StatelessWidget {
   const App({super.key});
 
-  // This widget is the root of your application.
+  Future<Map<String, bool>> _checkPrefernces() async {
+    final PreferenceManager prefs = await PreferenceManager.getInstance();
+    final bool onBoarding =
+        IHelpers.extractRightFromEither(prefs.getData<bool>("onBoarding"))!;
+    final String rollNo =
+        IHelpers.extractRightFromEither(prefs.getData<String>("rollNo"))!;
+
+    return {
+      "onBoarding": onBoarding,
+      "rollNo": rollNo != "" ? true : false,
+    };
+  }
+
+  void _fetchUser(BuildContext context) async {
+    final PreferenceManager prefs = await PreferenceManager.getInstance();
+    final String rollNo =
+        IHelpers.extractRightFromEither(prefs.getData<String>("rollNo"))!;
+
+    // ignore: use_build_context_synchronously
+    context
+        .read<UserBloc>()
+        .add(FetchData(rollNo: rollNo, isInitialDataFetch: true));
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -36,17 +92,33 @@ class App extends StatelessWidget {
         ),
       ),
       home: BlocBuilder<ConnectivityBloc, ConnectivityState>(
-            builder: (context, state) {
-              if (state is ConnectivityInitial) {
-                return const Text('Checking connectivity...');
-              } else if (state is ConnectivitySuccess) {
-                return const OnBoardingScreen();
-              } else if (state is ConnectivityFailure) {
-                return const Text('Not Connected');
-              }
-              return Container();
-            },
-          ),
+        builder: (context, state) {
+          if (state is ConnectivitySuccess) {
+            return FutureBuilder<Map<String, bool>>(
+              future: _checkPrefernces(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const ILoaderScreen(content: Constants.loadingLoader);
+                } else if (snapshot.data!["onBoarding"] == false) {
+                  return const OnBoardingScreen();
+                } else if (snapshot.data!["onBoarding"] == true &&
+                    snapshot.data!["rollNo"] == false) {
+                  return const AuthScreen();
+                } else if (snapshot.data!["rollNo"] == true) {
+                  _fetchUser(context);
+                  return const NavigationMenuBar();
+                } else if (snapshot.hasError) {
+                  return const ILoaderScreen(content: Constants.error404Loader);
+                }
+                return Container();
+              },
+            );
+          } else if (state is ConnectivityFailure) {
+            return const ILoaderScreen(content: Constants.noInternetLoader);
+          }
+          return Container();
+        },
+      ),
     );
   }
 }

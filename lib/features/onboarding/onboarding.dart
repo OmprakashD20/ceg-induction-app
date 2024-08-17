@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:induction_app/common/widgets/button.dart';
 import 'package:induction_app/features/authentication/auth.dart';
+import 'package:induction_app/utils/preference_manager.dart';
 import 'package:induction_app/utils/strings.dart';
 
 class OnBoardingScreen extends StatefulWidget {
@@ -11,6 +12,17 @@ class OnBoardingScreen extends StatefulWidget {
 }
 
 class _OnBoardingScreenState extends State<OnBoardingScreen> {
+  void _onGetStarted() async {
+    final PreferenceManager prefs = await PreferenceManager.getInstance();
+    await prefs.setData<bool>(true, "onBoarding");
+    Navigator.push(
+      // ignore: use_build_context_synchronously
+      context,
+      MaterialPageRoute(
+        builder: (context) => const AuthScreen(),
+      ),
+    );
+  }
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -39,23 +51,23 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                     stops: const [0, 0.67, 0.72, 0.85, 1],
                   ).createShader(rect);
                 },
-                child: Container(
-                  child: Image.asset(
-                    MediaStrings.cegPic,
-                    fit: BoxFit.cover,
-                  ),
+                child: Image.asset(
+                  Constants.cegPic,
+                  fit: BoxFit.cover,
                 ),
               ),
             ),
             Positioned(
-                width: 55.0,
-                top: 25.0,
-                right: 25.0,
-                child: SafeArea(
-                    child: Image.asset(
-                  MediaStrings.ctf,
+              width: 55.0,
+              top: 25.0,
+              right: 25.0,
+              child: SafeArea(
+                child: Image.asset(
+                  Constants.ctf,
                   color: Colors.white,
-                ))),
+                ),
+              ),
+            ),
             Positioned(
               left: 0.0,
               right: 0.0,
@@ -68,12 +80,13 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                     Text(
                       "Ready to Explore?",
                       style: TextStyle(
-                          color: Colors.white.withOpacity(0.85),
-                          fontSize: 25.0,
-                          fontFamily: "Poppins",
-                          fontWeight: FontWeight.bold),
+                        color: Colors.white.withOpacity(0.85),
+                        fontSize: 25.0,
+                        fontFamily: "Poppins",
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10.0,
                     ),
                     Text(
@@ -91,12 +104,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                     IButton(
                       width: double.infinity,
                       text: "Gets Started",
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => AuthScreen()));
-                      },
+                      onTap: () => _onGetStarted(),
                     )
                   ],
                 ),

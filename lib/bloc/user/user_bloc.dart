@@ -15,50 +15,66 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       : _userRepository = userRepository ?? UserRepository(),
         super(UserInitial()) {
     on<UserLogin>(_onUserLogin);
-    on<FetchUserJson>(_onFetchUserJson);
     on<FetchData>(_onFetchData);
+    on<UserLogout>(_onUserLogout);
   }
 
-  void _onUserLogin(UserLogin event, Emitter<UserState> emit) {
+  void _onUserLogin(UserLogin event, Emitter<UserState> emit) async {
     String rollNo = event.username;
     String password = event.password;
 
     emit(UserLoading());
 
     if (rollNo.isEmpty) {
-      return emit(UserError("Roll number cannot be empty"));
+      emit(UserError("Roll number cannot be empty"));
+      return;
     }
 
-    _userRepository.fetchUser(rollNo: rollNo).then((user) {
+    try {
+      final user = await _userRepository.fetchUser(rollNo: rollNo);
+
       if (user.dob != password || user.rollNo != rollNo) {
         emit(UserError("Invalid credentials"));
         return;
       }
 
-      emit(UserLoaded(user));
-    }).catchError((e) {
+      final fetchDataEvent = FetchData(rollNo: rollNo);
+
+      await _onFetchData(fetchDataEvent, emit);
+
+      await event.onLogin();
+
+      emit(UserLoaded(
+        user,
+        schedule: state is UserLoaded ? (state as UserLoaded).schedule : null,
+        places: state is UserLoaded ? (state as UserLoaded).places : null,
+        events: state is UserLoaded ? (state as UserLoaded).events : null,
+        notifications:
+            state is UserLoaded ? (state as UserLoaded).notifications : null,
+        faqs: state is UserLoaded ? (state as UserLoaded).faqs : null,
+      ));
+    } catch (e) {
       emit(UserError(e.toString()));
-    });
+    }
   }
 
-  void _onFetchUserJson(FetchUserJson event, Emitter<UserState> emit) {
-    String rollNo = event.rollNo;
-
-    emit(UserLoading());
-
-    if (rollNo.isEmpty) {
-      return emit(UserError("Roll number cannot be empty"));
-    }
-
-    _userRepository.fetchUser(rollNo: rollNo).then((user) {
-      emit(UserLoaded(user));
-    }).catchError((e) {
-      emit(UserError(e.toString()));
-    });
+  void _onUserLogout(UserLogout event, Emitter<UserState> emit) {
+    emit(UserInitial());
   }
 
   Future<void> _onFetchData(FetchData event, Emitter<UserState> emit) async {
-    emit(UserLoading());
+    if (state is UserLoaded && !event.isInitialDataFetch) {
+      emit(UserLoaded(
+        state.user,
+        schedule: state.schedule,
+        places: state.places,
+        events: state.events,
+        notifications: state.notifications,
+        faqs: state.faqs,
+      ));
+    } else {
+      emit(UserLoading());
+    }
 
     final List<Future<dynamic>> futures = [];
 
@@ -69,11 +85,11 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     List<NotificationModel>? notifications;
     List<FAQModel>? faqs;
 
-    // if (event.jsonObjects.contains(JsonObjects.user) &&
-    //     event.rollNo.isNotEmpty) {
-    //   userFuture = _userRepository.fetchUser(rollNo: event.rollNo);
-    //   futures.add(userFuture);
-    // }
+    if (event.jsonObjects.contains(JsonObjects.user) &&
+        event.rollNo.isNotEmpty) {
+      userFuture = _userRepository.fetchUser(rollNo: event.rollNo);
+      futures.add(userFuture);
+    }
     if (event.jsonObjects.contains(JsonObjects.schedule)) {
       futures.add(
           _userRepository.fetchSchedule().then((value) => schedule = value));
@@ -111,7 +127,6 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       }
     } catch (e) {
       if (!emit.isDone) {
-        print(e);
         emit(UserError(e.toString()));
       }
     }

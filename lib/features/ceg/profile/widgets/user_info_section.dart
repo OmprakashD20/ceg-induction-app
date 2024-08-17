@@ -25,12 +25,14 @@ class UserInfoSection extends StatelessWidget {
       ),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Container(
-          padding: EdgeInsets.all(10.0),
+          padding: const EdgeInsets.all(10.0),
           decoration: BoxDecoration(
-              color: IColors.primary.withOpacity(0.75),
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(10.0),
-                  topRight: Radius.circular(10.0))),
+            color: IColors.primary.withOpacity(0.75),
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(10.0),
+              topRight: Radius.circular(10.0),
+            ),
+          ),
           child: Center(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -43,7 +45,7 @@ class UserInfoSection extends StatelessWidget {
                   user.name,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 18.0,
                       fontWeight: FontWeight.w500,
                       color: Colors.white),
@@ -53,7 +55,7 @@ class UserInfoSection extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: EdgeInsets.all(10.0),
+          padding: const EdgeInsets.all(10.0),
           child: Column(
             children: [
               UserInfoCard(
@@ -78,10 +80,11 @@ class UserInfoSection extends StatelessWidget {
                   title: "Date of Birth",
                   content: user.dob),
               UserInfoCard(
-                  icon: Iconsax.profile_2user,
-                  iconSize: 25.0,
-                  title: "Gender",
-                  content: user.gender),
+                icon: Iconsax.profile_2user,
+                iconSize: 25.0,
+                title: "Gender",
+                content: user.gender,
+              ),
             ],
           ),
         )

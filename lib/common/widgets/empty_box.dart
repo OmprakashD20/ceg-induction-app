@@ -9,7 +9,7 @@ class EmptyBoxMessageLoader extends StatelessWidget {
     super.key,
     this.title = "Empty Box!",
     required this.content,
-    this.lottieImage = MediaStrings.emptyBox,
+    this.lottieImage = Constants.emptyBox,
   });
   final String title;
   final String content;

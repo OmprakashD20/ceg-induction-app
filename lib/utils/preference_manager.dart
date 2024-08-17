@@ -8,7 +8,17 @@ class PreferenceManager {
   final SharedPreferences _prefs;
   static const invalidTypeError = 'Invalid Type:';
 
-  PreferenceManager(this._prefs);
+  PreferenceManager._(this._prefs);
+
+  static PreferenceManager? _instance;
+
+  static Future<PreferenceManager> getInstance() async {
+    if (_instance == null) {
+      final prefs = await SharedPreferences.getInstance();
+      _instance = PreferenceManager._(prefs);
+    }
+    return _instance!;
+  }
 
   FutureEither<bool> setData<T>(T data, String key) async {
     assert(
@@ -69,5 +79,9 @@ class PreferenceManager {
         ),
       );
     }
+  }
+
+  Future<bool> removeData(String key) async {
+    return await _prefs.remove(key);
   }
 }

@@ -7,8 +7,9 @@ class TextFieldHelpers {
       {required BuildContext context, String? regNo, String? password}) {
     bool regNoValid =
         regNo == null || regNo.isEmpty || int.tryParse(regNo) == null;
-    bool passValid =
-        password == null || password.isEmpty || int.tryParse(password) == null;
+    bool passValid = password == null ||
+        password.isEmpty ||
+        !RegExp(r'^[\d\-]+$').hasMatch(password);
     if (regNoValid && passValid) {
       ISnackBar.customToast(
         type: SnackBarType.error,
@@ -52,7 +53,7 @@ class TextFieldHelpers {
       // constraints: const BoxConstraints.expand(height: TSizes.inputFieldHeight),
       labelStyle:
           const TextStyle().copyWith(fontSize: 15, color: IColors.black),
-      hintStyle: TextStyle(
+      hintStyle: const TextStyle(
           fontSize: 15, color: IColors.darkGrey, fontWeight: FontWeight.w400),
       errorStyle: const TextStyle().copyWith(
           fontStyle: FontStyle.normal, color: IColors.warning, fontSize: 13.0),

@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:induction_app/bloc/user/user_bloc.dart';
+
 import 'package:induction_app/common/widgets/button.dart';
 import 'package:induction_app/common/widgets/snackbar.dart';
 import 'package:induction_app/features/authentication/helpers.dart';
 import 'package:induction_app/features/authentication/widgets/header.dart';
 import 'package:induction_app/features/ceg/help/help.dart';
-import 'package:induction_app/features/ceg/home/home.dart';
 import 'package:induction_app/features/ceg/navigation.dart';
 import 'package:induction_app/utils/color.dart';
-import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:induction_app/utils/device/device_utils.dart';
+import 'package:induction_app/utils/preference_manager.dart';
 
 class AuthForm extends StatefulWidget {
   const AuthForm({
@@ -26,6 +27,30 @@ class _AuthFormState extends State<AuthForm> {
 
   TextEditingController regNoController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  bool isLoading = false;
+
+  void _onLogin() async {
+    final PreferenceManager prefs = await PreferenceManager.getInstance();
+    await prefs.setData<String>(regNoController.text, "rollNo");
+    Navigator.push(
+      // ignore: use_build_context_synchronously
+      context,
+      MaterialPageRoute(
+        builder: (context) => const NavigationMenuBar(),
+      ),
+    );
+    setState(() {
+      isLoading = false;
+    });
+    ISnackBar.clearAllSnackBars();
+    ISnackBar.customToast(
+      type: SnackBarType.success,
+      title: "Login Successfull!",
+      subTitle:
+          "Congrats, Freshie! 🎉 Your credentials are as solid as your first-year dreams. Dive in and start exploring.",
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -36,120 +61,137 @@ class _AuthFormState extends State<AuthForm> {
         floatingActionButton: FloatingActionButton(
           onPressed: () =>
               Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return HelpScreen();
+            return const HelpScreen();
           })),
           backgroundColor: IColors.darkBlue,
-          child: Icon(
+          child: const Icon(
             Iconsax.message_question,
             color: Colors.white,
             size: 30.0,
           ),
         ),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: height * 0.1,
-                ),
-                //Header
-                ...authHeader(),
-
-                SizedBox(
-                  height: 15.0,
-                ),
-                Form(
-                  key: authFormKey,
-                  child: Container(
-                    width: width,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(
-                          width: width * 0.85,
-                          margin: EdgeInsets.symmetric(vertical: 10.0),
-                          decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.9),
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          child: TextFormField(
-                            controller: regNoController,
-                            // validator: (value) => TextFieldHelpers.validateRegNo(
-                            //     context: context,
-                            //     fieldName: "RegNo",
-                            //     value: value),
-                            cursorColor: IColors.primary,
-                            keyboardType: TextInputType.number,
-                            decoration: TextFieldHelpers.inputDecoration(
+        body: BlocListener<UserBloc, UserState>(
+          listener: (context, state) {
+            if (state is UserError) {
+              setState(() {
+                isLoading = false;
+              });
+              ISnackBar.customToast(
+                type: SnackBarType.error,
+                title: "Error",
+                subTitle: state.message,
+              );
+            }
+          },
+          child: SingleChildScrollView(
+            child: Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: height * 0.1,
+                  ),
+                  ...authHeader(),
+                  const SizedBox(
+                    height: 15.0,
+                  ),
+                  Form(
+                    key: authFormKey,
+                    child: SizedBox(
+                      width: width,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            width: width * 0.85,
+                            margin: const EdgeInsets.symmetric(vertical: 10.0),
+                            decoration: BoxDecoration(
+                              color: Colors.white.withOpacity(0.9),
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            child: TextFormField(
+                              controller: regNoController,
+                              // validator: (value) => TextFieldHelpers.validateRegNo(
+                              //     context: context,
+                              //     fieldName: "RegNo",
+                              //     value: value),
+                              cursorColor: IColors.primary,
+                              keyboardType: TextInputType.number,
+                              decoration: TextFieldHelpers.inputDecoration(
                                 tfBorderRadius: 10.0,
-                                prefixIcon: Icon(Iconsax.direct_right),
-                                labelText: "Register number"),
-                          ),
-                        ),
-                        Container(
-                          width: width * 0.85,
-                          margin: EdgeInsets.symmetric(vertical: 10.0),
-                          decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.9),
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          child: TextFormField(
-                            controller: passwordController,
-                            // validator: (value) =>
-                            //     TextFieldHelpers.validatePassword(
-                            //         context: context,
-                            //         fieldName: "Password",
-                            //         value: value),
-                            keyboardType: TextInputType.number,
-                            cursorColor: IColors.primary,
-                            decoration: TextFieldHelpers.inputDecoration(
-                              tfBorderRadius: 10.0,
-                              labelText: "Password",
-                              prefixIcon: const Icon(Iconsax.user_edit),
+                                prefixIcon: const Icon(Iconsax.direct_right),
+                                labelText: "Register number",
+                              ),
                             ),
                           ),
-                        ),
-                        SizedBox(
-                          height: 25.0,
-                        ),
-                        IButton(
+                          Container(
+                            width: width * 0.85,
+                            margin: const EdgeInsets.symmetric(vertical: 10.0),
+                            decoration: BoxDecoration(
+                              color: Colors.white.withOpacity(0.9),
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            child: TextFormField(
+                              controller: passwordController,
+                              // validator: (value) =>
+                              //     TextFieldHelpers.validatePassword(
+                              //         context: context,
+                              //         fieldName: "Password",
+                              //         value: value),
+                              keyboardType: TextInputType.number,
+                              cursorColor: IColors.primary,
+                              decoration: TextFieldHelpers.inputDecoration(
+                                tfBorderRadius: 10.0,
+                                labelText: "Password",
+                                hintText: "Your DOB in YYYY-MM-DD format",
+                                prefixIcon: const Icon(Iconsax.user_edit),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 25.0,
+                          ),
+                          IButton(
                             height: 55.0,
                             width: width * 0.85,
-                            text: "LogIn",
-                            isSuffixIcon: false,
+                            text: isLoading ? "Logging in..." : "Login",
                             onTap: () {
-                              //authFormKey.currentState!.validate();
                               bool valid = TextFieldHelpers.validate(
-                                  context: context,
-                                  regNo: regNoController.text,
-                                  password: passwordController.text);
+                                context: context,
+                                regNo: regNoController.text,
+                                password: passwordController.text,
+                              );
                               if (!valid) return;
 
-                              //hide keyboard
                               IDeviceUtils.hideKeyboard(context);
+                              setState(() {
+                                isLoading = true;
+                              });
 
-                              ISnackBar.clearAllSnackBars();
-                              ISnackBar.customToast(
-                                type: SnackBarType.success,
-                                title: "Login Successfull!",
-                                subTitle:
-                                    "Your credentials are valid. Explore the the app now.",
-                              );
+                              context.read<UserBloc>().add(
+                                    UserLogin(
+                                      username: regNoController.text,
+                                      password: passwordController.text,
+                                      onLogin: _onLogin,
+                                    ),
+                                  );
 
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          NavigationMenuBar()));
-                            })
-                      ],
+                              // Navigator.of(context).pushReplacement(
+                              //   MaterialPageRoute(
+                              //     builder: (context) =>
+                              //         const NavigationMenuBar(),
+                              //   ),
+                              // );
+                            },
+                          )
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

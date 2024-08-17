@@ -5,17 +5,17 @@ import 'package:induction_app/utils/device/device_utils.dart';
 import 'package:induction_app/utils/strings.dart';
 
 class ScreenBackground extends StatelessWidget {
-  ScreenBackground({super.key, required this.child});
-  Widget child;
+  const ScreenBackground({super.key, required this.child});
+  final Widget child;
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Image.asset(MediaStrings.screen),
+        Image.asset(Constants.screen),
         Positioned.fill(
           child: BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
-            child: SizedBox(),
+            child: const SizedBox(),
           ),
         ),
         Padding(
