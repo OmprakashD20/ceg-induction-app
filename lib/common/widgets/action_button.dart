@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:induction_app/utils/color.dart';
 
 class ActionButton extends StatelessWidget {
-  ActionButton({super.key, this.onTap, required this.iconImage});
-  VoidCallback? onTap;
+  const ActionButton({super.key, this.onTap, required this.iconImage});
+  final VoidCallback? onTap;
   final String iconImage;
   @override
   Widget build(BuildContext context) {

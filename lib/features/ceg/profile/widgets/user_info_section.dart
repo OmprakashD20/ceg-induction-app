@@ -1,10 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:induction_app/features/ceg/profile/widgets/user_info_card.dart';
 import 'package:induction_app/models/models.dart';
 import 'package:induction_app/utils/color.dart';
-import 'package:induction_app/utils/strings.dart';
 
 import '../../../../common/widgets/profile_avatar.dart';
 
@@ -59,26 +57,30 @@ class UserInfoSection extends StatelessWidget {
           child: Column(
             children: [
               UserInfoCard(
-                  icon: Iconsax.profile_circle,
-                  iconSize: 30.0,
-                  title: "RegNo",
-                  content: user.rollNo),
+                icon: Iconsax.profile_circle,
+                iconSize: 30.0,
+                title: "RegNo",
+                content: user.rollNo,
+              ),
               UserInfoCard(
-                  icon: Iconsax.book,
-                  iconSize: 25.0,
-                  title: "Branch",
-                  content: user.branch),
+                icon: Iconsax.book,
+                iconSize: 25.0,
+                title: "Branch",
+                content: user.branch,
+              ),
               UserInfoCard(
-                  icon: Iconsax.bank,
-                  iconSize: 25.0,
-                  title: "Department",
-                  isCardSizeVariable: true,
-                  content: user.dept),
+                icon: Iconsax.bank,
+                iconSize: 25.0,
+                title: "Department",
+                isCardSizeVariable: true,
+                content: user.dept,
+              ),
               UserInfoCard(
-                  icon: Iconsax.calendar_1,
-                  iconSize: 25.0,
-                  title: "Date of Birth",
-                  content: user.dob),
+                icon: Iconsax.calendar_1,
+                iconSize: 25.0,
+                title: "Date of Birth",
+                content: user.dob,
+              ),
               UserInfoCard(
                 icon: Iconsax.profile_2user,
                 iconSize: 25.0,

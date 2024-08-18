@@ -77,10 +77,11 @@ class ProfileScreen extends StatelessWidget {
                             ActionButton(
                               onTap: () {
                                 Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => FAQsScreen(),
-                                    ));
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const FAQsScreen(),
+                                  ),
+                                );
                               },
                               iconImage: Constants.faqBox,
                             ),

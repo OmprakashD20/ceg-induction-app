@@ -14,7 +14,6 @@ import 'package:induction_app/utils/helpers.dart';
 import 'package:induction_app/utils/device/device_utils.dart';
 import 'package:induction_app/utils/preference_manager.dart';
 import 'package:induction_app/utils/strings.dart';
-import 'package:lottie/lottie.dart';
 import 'widgets/day_events_schedule.dart';
 
 class ScheduleScreen extends StatefulWidget {

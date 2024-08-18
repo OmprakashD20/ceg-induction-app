@@ -3,22 +3,23 @@ import 'package:iconsax/iconsax.dart';
 import 'package:induction_app/utils/color.dart';
 
 class ISmallButton extends StatelessWidget {
-  ISmallButton(
-      {super.key,
-      this.onTap,
-      this.icon = Iconsax.arrow_right_3,
-      this.size = 17.5,
-      this.iconColor,
-      this.buttonColor,
-      this.padding = 5.0,
-      this.isBlue = false});
-  VoidCallback? onTap;
-  IconData icon;
-  double size;
-  double padding;
-  bool isBlue;
-  Color? iconColor;
-  Color? buttonColor;
+  const ISmallButton({
+    super.key,
+    this.onTap,
+    this.icon = Iconsax.arrow_right_3,
+    this.size = 17.5,
+    this.iconColor,
+    this.buttonColor,
+    this.padding = 5.0,
+    this.isBlue = false,
+  });
+  final VoidCallback? onTap;
+  final IconData icon;
+  final double size;
+  final double padding;
+  final bool isBlue;
+  final Color? iconColor;
+  final Color? buttonColor;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

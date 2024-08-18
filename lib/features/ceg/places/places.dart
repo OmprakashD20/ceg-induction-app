@@ -37,7 +37,7 @@ class PlacesScreen extends StatelessWidget {
               child: SingleChildScrollView(
                   child: Column(
                 children: [
-                  ScreenAppBar(
+                  const ScreenAppBar(
                     text: "CEG Places",
                     automaticallyImplyLeading: true,
                   ),

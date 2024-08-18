@@ -16,7 +16,7 @@ class HelpScreen extends StatelessWidget {
         child: SingleChildScrollView(
             child: Column(
           children: [
-            ScreenAppBar(
+            const ScreenAppBar(
               text: "Help",
               automaticallyImplyLeading: true,
             ),

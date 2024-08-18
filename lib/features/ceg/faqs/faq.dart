@@ -10,8 +10,10 @@ import 'package:induction_app/utils/color.dart';
 import 'package:induction_app/utils/strings.dart';
 
 class FAQsScreen extends StatefulWidget {
+  const FAQsScreen({super.key});
+
   @override
-  _FAQsScreenState createState() => _FAQsScreenState();
+  State<FAQsScreen> createState() => _FAQsScreenState();
 }
 
 class _FAQsScreenState extends State<FAQsScreen> {
@@ -42,7 +44,7 @@ class _FAQsScreenState extends State<FAQsScreen> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    ScreenAppBar(
+                    const ScreenAppBar(
                       text: "FAQs",
                       automaticallyImplyLeading: true,
                     ),

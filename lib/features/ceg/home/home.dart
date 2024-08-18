@@ -8,7 +8,6 @@ import 'package:induction_app/features/authentication/widgets/screen_background.
 import 'package:induction_app/features/ceg/home/widgets/app_bar.dart';
 import 'package:induction_app/features/ceg/home/widgets/bento_grid.dart';
 import 'package:induction_app/features/ceg/home/widgets/carousel_card.dart';
-import 'package:induction_app/models/models.dart';
 import 'package:induction_app/utils/color.dart';
 import 'package:induction_app/utils/helpers.dart';
 import 'package:induction_app/utils/preference_manager.dart';

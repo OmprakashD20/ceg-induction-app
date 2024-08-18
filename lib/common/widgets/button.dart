@@ -3,24 +3,25 @@ import 'package:iconsax/iconsax.dart';
 import 'package:induction_app/utils/color.dart';
 
 class IButton extends StatelessWidget {
-  IButton(
-      {super.key,
-      required this.onTap,
-      required this.text,
-      this.isSuffixIcon = false,
-      this.isPrefixIcon = false,
-      this.margin = 10.0,
-      this.icon,
-      this.height,
-      this.width});
+  const IButton({
+    super.key,
+    required this.onTap,
+    required this.text,
+    this.isSuffixIcon = false,
+    this.isPrefixIcon = false,
+    this.margin = 10.0,
+    this.icon,
+    this.height,
+    this.width,
+  });
   final String text;
-  VoidCallback onTap;
-  bool isSuffixIcon;
-  bool isPrefixIcon;
-  double? height;
-  double margin;
-  double? width;
-  IconData? icon;
+  final VoidCallback onTap;
+  final bool isSuffixIcon;
+  final bool isPrefixIcon;
+  final double? height;
+  final double margin;
+  final double? width;
+  final IconData? icon;
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -28,7 +29,7 @@ class IButton extends StatelessWidget {
       child: Container(
         height: height ?? 50.0,
         width: width,
-        padding: EdgeInsets.symmetric(horizontal: 10.0),
+        padding: const EdgeInsets.symmetric(horizontal: 10.0),
         margin: EdgeInsets.symmetric(vertical: margin),
         decoration: BoxDecoration(
             color: IColors.darkBlue, borderRadius: BorderRadius.circular(10)),
@@ -40,14 +41,14 @@ class IButton extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(right: 10.0),
                 child: Icon(
-                  icon == null ? Iconsax.arrow_circle_right5 : icon,
+                  icon ?? Iconsax.arrow_circle_right5,
                   color: Colors.white,
                 ),
               ),
             Text(
               text,
               textAlign: TextAlign.center,
-              style: TextStyle(
+              style: const TextStyle(
                 fontWeight: FontWeight.w500,
                 color: Colors.white,
                 fontSize: 17.0,
@@ -60,7 +61,7 @@ class IButton extends StatelessWidget {
                   left: 10,
                 ),
                 child: Icon(
-                  icon == null ? Iconsax.arrow_circle_right5 : icon,
+                  icon ?? Iconsax.arrow_circle_right5,
                   color: Colors.white,
                 ),
               )

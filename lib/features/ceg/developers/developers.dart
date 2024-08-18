@@ -16,12 +16,12 @@ class DevelopersScreen extends StatelessWidget {
         child: SingleChildScrollView(
             child: Column(
           children: [
-            ScreenAppBar(
+            const ScreenAppBar(
               text: "Developers",
               automaticallyImplyLeading: true,
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.0),
               child: Text(
                 "For any feedback or to report bugs in the app, please feel free to contact us.",
                 style: TextStyle(fontSize: 15.0, color: IColors.darkerGrey),

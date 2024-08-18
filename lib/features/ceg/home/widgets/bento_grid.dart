@@ -28,17 +28,18 @@ class BentoGridView extends StatelessWidget {
         //row grid count (no of columns)
         crossAxisCount: 18,
         children: [
-          //////////////////////////////////////////
           StaggeredGridTile.count(
             crossAxisCellCount: 6,
             mainAxisCellCount: 11,
             child: IGridBox(
               onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => ScheduleScreen(
-                            automaticallyImplyLeading: true,
-                          ))),
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const ScheduleScreen(
+                    automaticallyImplyLeading: true,
+                  ),
+                ),
+              ),
               title: "Schedule",
               subTitle: "View the induction schedule.",
               image: Positioned(
@@ -60,15 +61,16 @@ class BentoGridView extends StatelessWidget {
             mainAxisCellCount: 11,
             child: SizedBox(),
           ),
-          //////////////////////////////////////////
           StaggeredGridTile.count(
             crossAxisCellCount: 11,
             mainAxisCellCount: 5,
             child: IGridBox(
               onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const MapFullScreen())),
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const MapFullScreen(),
+                ),
+              ),
               title: "CEG Map",
               subTitle: "View campus\nmap.",
               image: Positioned(
@@ -90,17 +92,18 @@ class BentoGridView extends StatelessWidget {
             mainAxisCellCount: 1,
             child: SizedBox(),
           ),
-          //////////////////////////////////////////
           StaggeredGridTile.count(
             crossAxisCellCount: 11,
             mainAxisCellCount: 5,
             child: IGridBox(
               onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const EventsScreen(
-                            automaticallyImplyLeading: true,
-                          ))),
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const EventsScreen(
+                    automaticallyImplyLeading: true,
+                  ),
+                ),
+              ),
               title: "Events",
               subTitle: "View events\ninfo.",
               image: Positioned(
@@ -121,7 +124,6 @@ class BentoGridView extends StatelessWidget {
             mainAxisCellCount: 1,
             child: SizedBox(),
           ),
-          //////////////////////////////////////////
           StaggeredGridTile.count(
             crossAxisCellCount: 10,
             mainAxisCellCount: 6,
@@ -147,13 +149,11 @@ class BentoGridView extends StatelessWidget {
               ),
             ),
           ),
-
           const StaggeredGridTile.count(
             crossAxisCellCount: 1,
             mainAxisCellCount: 2,
             child: SizedBox(),
           ),
-          //////////////////////////////////////////
           StaggeredGridTile.count(
             crossAxisCellCount: 7,
             mainAxisCellCount: 6,
@@ -161,7 +161,7 @@ class BentoGridView extends StatelessWidget {
               onTap: () => Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => ProfileScreen(
+                      builder: (context) => const ProfileScreen(
                             automaticallyImplyLeading: true,
                           ))),
               title: "Profile",
@@ -187,21 +187,24 @@ class BentoGridView extends StatelessWidget {
             mainAxisCellCount: 1,
             child: SizedBox(),
           ),
-          //////////////////////////////////////////
           StaggeredGridTile.count(
             crossAxisCellCount: 8,
             mainAxisCellCount: 5,
             child: IGridBox(
               isSmall: true,
-              onTap: () => Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => FAQsScreen())),
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const FAQsScreen(),
+                ),
+              ),
               title: "FAQs",
               subTitle: "Clear your\ndoubts.",
               //image: const SizedBox(),
               image: Positioned(
                 bottom: 0.5 * gridUnit,
                 right: 0,
-                child: Container(
+                child: SizedBox(
                   width: gridUnit * 3.75,
                   child: Image.asset(
                     Constants.faqBox,
@@ -217,7 +220,6 @@ class BentoGridView extends StatelessWidget {
             mainAxisCellCount: 5,
             child: SizedBox(),
           ),
-          //////////////////////////////////////////
           StaggeredGridTile.count(
             crossAxisCellCount: 9,
             mainAxisCellCount: 5,
@@ -231,7 +233,7 @@ class BentoGridView extends StatelessWidget {
               image: Positioned(
                 bottom: 0.5 * gridUnit,
                 right: 0,
-                child: Container(
+                child: SizedBox(
                   //color: Colors.red,
                   width: gridUnit * 3.5,
                   child: Image.asset(
@@ -250,18 +252,19 @@ class BentoGridView extends StatelessWidget {
 }
 
 class IGridBox extends StatelessWidget {
-  IGridBox(
-      {super.key,
-      required this.title,
-      required this.subTitle,
-      required this.image,
-      this.isSmall = false,
-      this.onTap});
-  String title;
-  String subTitle;
-  VoidCallback? onTap;
-  Widget image;
-  bool isSmall;
+  const IGridBox({
+    super.key,
+    required this.title,
+    required this.subTitle,
+    required this.image,
+    this.isSmall = false,
+    this.onTap,
+  });
+  final String title;
+  final String subTitle;
+  final VoidCallback? onTap;
+  final Widget image;
+  final bool isSmall;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:induction_app/utils/color.dart';
-import 'package:induction_app/utils/device/device_utils.dart';
 
 class UserInfoCard extends StatelessWidget {
   final IconData icon;
@@ -41,15 +40,20 @@ class UserInfoCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(title,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style:
-                          TextStyle(fontSize: 13.0, color: IColors.darkerGrey)),
-                  Text(content,
-                      maxLines: (isCardSizeVariable) ? 3 : 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(fontSize: 15.0, color: IColors.black)),
+                  Text(
+                    title,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                        fontSize: 13.0, color: IColors.darkerGrey),
+                  ),
+                  Text(
+                    content,
+                    maxLines: (isCardSizeVariable) ? 3 : 1,
+                    overflow: TextOverflow.ellipsis,
+                    style:
+                        const TextStyle(fontSize: 15.0, color: IColors.black),
+                  ),
                 ],
               ),
             ),

@@ -24,7 +24,7 @@ class EmptyBoxMessageLoader extends StatelessWidget {
             horizontal: IDeviceUtils.getScreenWidth(context) * 0.1),
         child: Column(
           children: [
-            Container(
+            SizedBox(
                 height: IDeviceUtils.getScreenWidth(context) * 0.8,
                 child: Lottie.asset(lottieImage,
                     fit: BoxFit.cover,
@@ -33,13 +33,19 @@ class EmptyBoxMessageLoader extends StatelessWidget {
               padding: const EdgeInsets.all(5.0),
               child: Text(
                 title,
-                style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
+                style: const TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ),
             Text(
               content,
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 14, color: IColors.darkGrey),
+              style: const TextStyle(
+                fontSize: 14,
+                color: IColors.darkGrey,
+              ),
             )
           ],
         ),
