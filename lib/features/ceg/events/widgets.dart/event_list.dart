@@ -11,7 +11,10 @@ import 'package:induction_app/utils/color.dart';
 import 'package:induction_app/utils/helpers.dart';
 
 class EventList extends StatelessWidget {
-  const EventList({super.key, required this.events});
+  const EventList({
+    super.key,
+    required this.events,
+  });
   final List<EventModel> events;
   @override
   Widget build(BuildContext context) {
@@ -45,17 +48,23 @@ class EventList extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text(event.name,
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 2,
-                          style: const TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w500)),
-                      Text(event.desc,
-                          // overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                            color: IColors.darkerGrey,
-                            fontSize: 14,
-                          )),
+                      Text(
+                        event.name,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      Text(
+                        event.desc,
+                        // overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          color: IColors.darkerGrey,
+                          fontSize: 14,
+                        ),
+                      ),
                     ],
                   ),
                 ),

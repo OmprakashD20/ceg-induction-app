@@ -7,7 +7,7 @@ import 'package:induction_app/common/widgets/loader.dart';
 import 'package:induction_app/common/widgets/screen_app_bar.dart';
 import 'package:induction_app/features/authentication/helpers.dart';
 import 'package:induction_app/features/authentication/widgets/screen_background.dart';
-import 'package:induction_app/features/ceg/events/widgets.dart/event_list.dart'; // Ensure the path is correct
+import 'package:induction_app/features/ceg/events/widgets.dart/event_list.dart'; 
 import 'package:induction_app/models/event_model.dart';
 import 'package:induction_app/utils/color.dart';
 import 'package:induction_app/utils/strings.dart';

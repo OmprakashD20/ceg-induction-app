@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 import 'package:equatable/equatable.dart';
 import 'package:induction_app/utils/typedefs.dart';
 import 'package:intl/intl.dart';
@@ -60,16 +61,35 @@ class NotificationModel extends Equatable {
   }
 
   factory NotificationModel.fromMap(Map<String, dynamic> map) {
+    String generateRandom24HourTime() {
+      // Create a random number generator
+      Random random = Random();
+
+      // Generate random hour (0-23)
+      int hour = random.nextInt(24);
+
+      // Generate random minute (0-59)
+      int minute = random.nextInt(60);
+
+      // Format the hour and minute to ensure two digits
+      String formattedHour = hour.toString().padLeft(2, '0');
+      String formattedMinute = minute.toString().padLeft(2, '0');
+
+      // Combine the hour and minute to form the 24-hour time
+      return '$formattedHour:$formattedMinute';
+    }
+
     return NotificationModel(
       title: map['title'] as String,
-      dateTime: DateTime.parse('${map['date']} ${map['time']}'),
+      dateTime: DateTime.parse('${map['date']} ${generateRandom24HourTime()}'),
       image: map['image'] as bool,
       path: map['path'] != null ? map['path'] as String : null,
       url: map['url'] != null ? map['url'] as String : null,
       content: map['content'] != null ? map['content'] as String : null,
       recencyLabel: map['recencyLabel'] != null
           ? RecencyLabel.values.firstWhere(
-              (element) => element.toString() == map['recencyLabel'])
+              (element) => element.toString() == map['recencyLabel'],
+            )
           : null,
       isFirstInGroup: map['isFirstInGroup'] ?? false,
     );

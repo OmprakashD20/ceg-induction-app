@@ -1,25 +1,25 @@
 class Constants {
-  static const String cegPic = "assets/img/ceg.jpg";
-  static const String cegFullPic = "assets/img/ceg_full.jpg";
-  static const String blueBG = "assets/img/bg.jpg";
-  static const String blueBG2 = "assets/img/bg2.jpg";
-  static const String blueBGFull = "assets/img/bgfull.jpg";
-  static const String ctf = "assets/img/ctf.png";
-  static const String user = "assets/img/user.png";
-  static const String screen = "assets/img/screen.jpg";
-  static const String map = 'assets/img/map.png';
-  static const String loader = 'assets/img/loader.png';
+  static const String cegPic = "assets/img/ceg.webp";
+  static const String cegFullPic = "assets/img/ceg_full.webp";
+  static const String blueBG = "assets/img/bg.webp";
+  static const String blueBG2 = "assets/img/bg2.webp";
+  static const String blueBGFull = "assets/img/bgfull.webp";
+  static const String ctf = "assets/img/ctf.webp";
+  static const String user = "assets/img/user.webp";
+  static const String screen = "assets/img/screen.webp";
+  static const String map = 'assets/img/map.webp';
+  static const String loader = 'assets/img/loader.webp';
 
-  static const String scheduleBox = "assets/img/schedule.png";
-  static const String cegMapBox = "assets/img/ceg_maps.png";
-  static const String cegPlacesBox = "assets/img/ceg_places.png";
-  static const String profileBox = "assets/img/profile.png";
-  static const String eventsBox = "assets/img/events.png";
-  static const String faqBox = "assets/img/faq.png";
-  static const String helpBox = "assets/img/help.png";
+  static const String scheduleBox = "assets/img/schedule.webp";
+  static const String cegMapBox = "assets/img/ceg_maps.webp";
+  static const String cegPlacesBox = "assets/img/ceg_places.webp";
+  static const String profileBox = "assets/img/profile.webp";
+  static const String eventsBox = "assets/img/events.webp";
+  static const String faqBox = "assets/img/faq.webp";
+  static const String helpBox = "assets/img/help.webp";
 
-  static const String bell = "assets/img/bell.png";
-  static const String dev = "assets/img/dev.png";
+  static const String bell = "assets/img/bell.webp";
+  static const String dev = "assets/img/dev.webp";
 
   static const String emptyBox = 'assets/lottie/emptybox.json';
   static const String male = 'assets/lottie/male.json';
