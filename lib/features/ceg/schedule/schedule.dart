@@ -33,8 +33,8 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
 
   final days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
   final weeks = [1, 2, 3];
-  final DateTime startDate = DateTime(2024, 8, 1);
-  final DateTime endDate = DateTime(2024, 9, 18);
+  final DateTime startDate = DateTime(2024, 8, 18);
+  final DateTime endDate = DateTime(2024, 9, 8);
 
   @override
   void initState() {
@@ -48,7 +48,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
   int _calculateCurrentWeekIndex() {
     final now = DateTime.now();
     if (now.isBefore(startDate) || now.isAfter(endDate)) {
-      return 0; // Default to the first week if the current date is out of range
+      return 0;
     }
     final daysPassed = now.difference(startDate).inDays;
     return (daysPassed / 7).floor();
@@ -203,13 +203,6 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                                   children: [
                                     ...List.generate(allDates[weekIndex].length,
                                         (index) {
-                                      // final dateStr =
-                                      //     allDates[weekIndex][index];
-                                      // final isAvailable =
-                                      //     availableDates.contains(dateStr);
-                                      // final date = DateTime.parse(dateStr);
-                                      // final dayIndex =
-                                      //     allDates[weekIndex].indexOf(dateStr);
                                       final result = checkDateAvailability(
                                         allDates,
                                         availableDates,
@@ -250,13 +243,23 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                                         weekIndex,
                                         index,
                                       );
+                                      final daySchedule =
+                                          IHelpers.getSelectedDate(batch,
+                                              selectedDayIndex, weekIndex);
+                                      final isHoliday = daySchedule.holiday;
                                       return (result["isAvailable"])
-                                          ? DayEventsSchedule(
-                                              index: index,
-                                              daySchedule:
-                                                  IHelpers.getSelectedDate(
-                                                      batch, selectedDayIndex),
-                                            )
+                                          ? isHoliday
+                                              ? const EmptyBoxMessageLoader(
+                                                  lottieImage:
+                                                      Constants.holiday,
+                                                  title: "Enjoy Your Break!",
+                                                  content:
+                                                      "Take some time to relax and recharge. See you soon!",
+                                                )
+                                              : DayEventsSchedule(
+                                                  index: index,
+                                                  daySchedule: daySchedule,
+                                                )
                                           : const EmptyBoxMessageLoader(
                                               title: "No Events Today!",
                                               content:

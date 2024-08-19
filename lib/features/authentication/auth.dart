@@ -33,7 +33,7 @@ class _AuthScreenState extends State<AuthScreen> {
   void _onLogin() async {
     final PreferenceManager prefs = await PreferenceManager.getInstance();
     await prefs.setData<String>(regNoController.text, "rollNo");
-    Navigator.push(
+    Navigator.pushReplacement(
       // ignore: use_build_context_synchronously
       context,
       MaterialPageRoute(

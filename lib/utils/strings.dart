@@ -27,6 +27,8 @@ class Constants {
   static const String errorConnection = 'assets/lottie/connection_error.json';
   static const String error404 = 'assets/lottie/404.json';
   static const String freshers = 'assets/lottie/freshers.json';
+  static const String holiday = 'assets/lottie/holiday.json';
+  static const String cat = 'assets/lottie/cat.json';
 
   static const Map<String, String> loadingLoader = {
     "title": 'Hang Tight!',

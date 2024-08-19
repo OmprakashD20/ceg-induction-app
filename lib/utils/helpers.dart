@@ -60,8 +60,9 @@ class IHelpers {
     return batches.firstWhere((batch) => batch.batchId == batchId);
   }
 
-  static DateModel getSelectedDate(BatchModel batch, int selectedDayIndex) {
-    return batch.dates[selectedDayIndex];
+  static DateModel getSelectedDate(
+      BatchModel batch, int selectedDayIndex, int weekIndex) {
+    return batch.dates[weekIndex * 7 + selectedDayIndex];
   }
 
   static DateModel getCurrentDaySchedule(BatchModel batch) {

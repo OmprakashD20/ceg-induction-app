@@ -10,10 +10,12 @@ class EmptyBoxMessageLoader extends StatelessWidget {
     this.title = "Empty Box!",
     required this.content,
     this.lottieImage = Constants.emptyBox,
+    this.isRounded = false,
   });
   final String title;
   final String content;
   final String lottieImage;
+  final bool isRounded;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -26,9 +28,16 @@ class EmptyBoxMessageLoader extends StatelessWidget {
           children: [
             SizedBox(
                 height: IDeviceUtils.getScreenWidth(context) * 0.8,
-                child: Lottie.asset(lottieImage,
-                    fit: BoxFit.cover,
-                    width: MediaQuery.of(context).size.width * 0.8)),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(
+                      IDeviceUtils.getScreenWidth(context) * 0.8),
+                  child: Lottie.asset(lottieImage,
+                      fit: BoxFit.cover,
+                      width: MediaQuery.of(context).size.width * 0.8),
+                )),
+            SizedBox(
+              height: 10,
+            ),
             Padding(
               padding: const EdgeInsets.all(5.0),
               child: Text(
