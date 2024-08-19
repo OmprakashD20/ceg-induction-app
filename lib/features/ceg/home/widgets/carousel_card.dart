@@ -21,7 +21,7 @@ class CarouselCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bool showStatus =
-        IHelpers.isProgramOngoing(program.startTime, program.endTime);
+        IHelpers.isProgramOngoing(program.startTime, program.endTime, date);
     final bool isEnded = IHelpers.isProgramEnded(date, program.endTime);
     return Container(
       width: IDeviceUtils.getScreenWidth(context) * 0.8,

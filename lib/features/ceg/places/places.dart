@@ -73,10 +73,10 @@ class PlacesScreen extends StatelessWidget {
                                         topLeft: Radius.circular(10.0),
                                         topRight: Radius.circular(10.0),
                                       ),
-                                      child: Image.asset(
+                                      child: Image.network(
                                         height: 100.0,
                                         width: double.infinity,
-                                        Constants.cegPic,
+                                        places![index].imageUrl,
                                         fit: BoxFit.cover,
                                       ),
                                     ),
@@ -87,7 +87,7 @@ class PlacesScreen extends StatelessWidget {
                                         onTap: () {
                                           showImageDialog(
                                             context,
-                                            Constants.cegFullPic,
+                                            places[index].imageUrl,
                                           );
                                         },
                                         size: 25,
@@ -118,7 +118,7 @@ class PlacesScreen extends StatelessWidget {
                                             vertical: 5,
                                           ),
                                           child: Text(
-                                            places![index].name,
+                                            places[index].name,
                                             textAlign: TextAlign.start,
                                             maxLines: 2,
                                             overflow: TextOverflow.ellipsis,

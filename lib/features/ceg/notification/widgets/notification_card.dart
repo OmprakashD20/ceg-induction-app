@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:induction_app/utils/color.dart';
 import 'package:induction_app/utils/device/device_utils.dart';
+import 'package:induction_app/utils/strings.dart';
 
 class NotificationCard extends StatelessWidget {
   final String title;
@@ -26,6 +26,8 @@ class NotificationCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final recencyStyle = Constants.notificationStyles[recencyLabel] ??
+        Constants.notificationStyles['Default'];
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -55,25 +57,15 @@ class NotificationCard extends StatelessWidget {
                 width: 40.0,
                 height: 40.0,
                 decoration: BoxDecoration(
-                    color: (recencyLabel == "Today")
-                        ? IColors.success.withOpacity(0.25)
-                        : (recencyLabel == "Yesterday")
-                            ? IColors.warning.withOpacity(0.25)
-                            : IColors.error.withOpacity(0.25),
-                    shape: BoxShape.circle),
+                  color: recencyStyle!['background'] as Color,
+                  shape: BoxShape.circle,
+                ),
                 child: Center(
-                    child: Icon(
-                  (recencyLabel == "Today")
-                      ? Iconsax.message_2
-                      : (recencyLabel == "Yesterday")
-                          ? Iconsax.message_tick
-                          : Iconsax.message_time,
-                  color: (recencyLabel == "Today")
-                      ? IColors.success
-                      : (recencyLabel == "Yesterday")
-                          ? IColors.warning
-                          : IColors.error,
-                )),
+                  child: Icon(
+                    recencyStyle['icon'] as IconData,
+                    color: recencyStyle['color'] as Color,
+                  ),
+                ),
               ),
             Container(
               decoration: isAlerts
@@ -115,7 +107,7 @@ class NotificationCard extends StatelessWidget {
                     maxLines: 10,
                     style:
                         const TextStyle(fontSize: 14, color: IColors.darkGrey),
-                  )
+                  ),
                 ],
               ),
             )

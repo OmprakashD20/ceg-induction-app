@@ -126,6 +126,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         ));
       }
     } catch (e) {
+      print(e);
       if (!emit.isDone) {
         emit(UserError(e.toString()));
       }

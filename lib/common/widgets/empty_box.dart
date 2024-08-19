@@ -35,7 +35,7 @@ class EmptyBoxMessageLoader extends StatelessWidget {
                       fit: BoxFit.cover,
                       width: MediaQuery.of(context).size.width * 0.8),
                 )),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Padding(

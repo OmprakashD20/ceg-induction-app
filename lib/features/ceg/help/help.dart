@@ -23,7 +23,7 @@ class HelpScreen extends StatelessWidget {
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.0),
               child: Text(
-                "For any queries you can contact the CTF members.",
+                "For any queries you can contact the SAAS(Student Association and Arts Society) members.",
                 style: TextStyle(fontSize: 15.0, color: IColors.darkerGrey),
               ),
             ),

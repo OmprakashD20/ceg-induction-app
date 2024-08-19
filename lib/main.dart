@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:induction_app/bloc/user/user_bloc.dart';
+import 'package:induction_app/common/handler/connectivity_handler.dart';
 import 'package:induction_app/common/widgets/loader.dart';
 import 'package:induction_app/common/widgets/snackbar.dart';
 import 'package:induction_app/features/authentication/auth.dart';
@@ -91,33 +92,26 @@ class App extends StatelessWidget {
           selectionColor: IColors.primary,
         ),
       ),
-      home: BlocBuilder<ConnectivityBloc, ConnectivityState>(
-        builder: (context, state) {
-          if (state is ConnectivitySuccess) {
-            return FutureBuilder<Map<String, bool>>(
-              future: _checkPrefernces(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const ILoaderScreen(content: Constants.loadingLoader);
-                } else if (snapshot.data!["onBoarding"] == false) {
-                  return const OnBoardingScreen();
-                } else if (snapshot.data!["onBoarding"] == true &&
-                    snapshot.data!["rollNo"] == false) {
-                  return const AuthScreen();
-                } else if (snapshot.data!["rollNo"] == true) {
-                  _fetchUser(context);
-                  return const NavigationMenuBar();
-                } else if (snapshot.hasError) {
-                  return const ILoaderScreen(content: Constants.error404Loader);
-                }
-                return Container();
-              },
-            );
-          } else if (state is ConnectivityFailure) {
-            return const ILoaderScreen(content: Constants.noInternetLoader);
-          }
-          return Container();
-        },
+      home: ConnectivityHandler(
+        successWidget: FutureBuilder<Map<String, bool>>(
+          future: _checkPrefernces(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const ILoaderScreen(content: Constants.loadingLoader);
+            } else if (snapshot.data!["onBoarding"] == false) {
+              return const OnBoardingScreen();
+            } else if (snapshot.data!["onBoarding"] == true &&
+                snapshot.data!["rollNo"] == false) {
+              return const AuthScreen();
+            } else if (snapshot.data!["rollNo"] == true) {
+              _fetchUser(context);
+              return const NavigationMenuBar();
+            } else if (snapshot.hasError) {
+              return const ILoaderScreen(content: Constants.error404Loader);
+            }
+            return Container();
+          },
+        ),
       ),
     );
   }

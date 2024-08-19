@@ -1,3 +1,6 @@
+import 'package:iconsax/iconsax.dart';
+import 'package:induction_app/utils/color.dart';
+
 class Constants {
   static const String cegPic = "assets/img/ceg.webp";
   static const String cegFullPic = "assets/img/ceg_full.webp";
@@ -45,5 +48,23 @@ class Constants {
     "title": "Page Not Found",
     "subTitle": "Uh-oh! We can't seem to find what you're looking for.",
     "lottie": error404
+  };
+
+  static Map<String, Map<String, dynamic>> notificationStyles = {
+    'Today': {
+      'color': IColors.success,
+      'icon': Iconsax.message_2,
+      'background': IColors.success.withOpacity(0.25),
+    },
+    'Yesterday': {
+      'color': IColors.warning,
+      'icon': Iconsax.message_tick,
+      'background': IColors.warning.withOpacity(0.25),
+    },
+    'Default': {
+      'color': IColors.error,
+      'icon': Iconsax.message_time,
+      'background': IColors.error.withOpacity(0.25),
+    },
   };
 }

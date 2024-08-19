@@ -1,8 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_arc_text/flutter_arc_text.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:induction_app/bloc/user/user_bloc.dart';
 import 'package:induction_app/common/handler/connectivity_handler.dart';
@@ -17,7 +14,6 @@ import 'package:induction_app/utils/helpers.dart';
 import 'package:induction_app/utils/preference_manager.dart';
 import 'package:induction_app/utils/strings.dart';
 import 'package:lottie/lottie.dart';
-import "dart:math" as math;
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -87,11 +83,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           ? Container(
                               height: 150,
                               width: IDeviceUtils.getScreenWidth(context) * 0.9,
-                              // padding: EdgeInsets.symmetric(
-                              //     horizontal: 10.0, vertical: 10.0),
                               decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(10.0)),
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
                               child: Row(
                                 children: [
                                   Stack(
@@ -109,7 +104,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               fit: BoxFit.fitWidth),
                                         ),
                                       ),
-                                      Positioned(
+                                      const Positioned(
                                           top: 30.0,
                                           child: Text(
                                             "Holiday",

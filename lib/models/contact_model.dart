@@ -1,7 +1,7 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:induction_app/utils/helpers.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+
+import 'package:induction_app/utils/helpers.dart';
 
 class ContactModel {
   final String name;
@@ -19,77 +19,57 @@ class ContactModel {
 
   static List<ContactModel> helpContacts = [
     ContactModel(
-        name: "Tyler Durden",
-        role: "Techops Student Director",
-        phone: "8072828935",
-        email: "kanishka2727@gmail.com",
-        contactTypeList: [
-          ContactTypeModel(
-            icon: MdiIcons.phoneOutline,
-            text: "Call",
-            function: () => IHelpers.phoneCall(phoneNo: "8072828935"),
-          ),
-          ContactTypeModel(
-            icon: MdiIcons.whatsapp,
-            text: "Message",
-            function: () => IHelpers.whatsappMessage(phoneNo: "8072828935"),
-          ),
-          ContactTypeModel(
-            icon: MdiIcons.emailOutline,
-            text: "Email",
-            function: () => IHelpers.sendEmail(email: "kanishka2727@gmail.com"),
-          ),
-        ]),
+      name: "M.G.Rahul Prasanth",
+      role: "SAAS Vice President",
+      phone: "+91 76399 86586",
+      email: "kanishka2727@gmail.com",
+      contactTypeList: [
+        ContactTypeModel(
+          icon: MdiIcons.phoneOutline,
+          text: "Call",
+          function: () => IHelpers.phoneCall(phoneNo: "+91 76399 86586"),
+        ),
+        ContactTypeModel(
+          icon: MdiIcons.whatsapp,
+          text: "Message",
+          function: () => IHelpers.whatsappMessage(phoneNo: "+91 76399 86586"),
+        ),
+        ContactTypeModel(
+          icon: MdiIcons.emailOutline,
+          text: "Email",
+          function: () => IHelpers.sendEmail(email: ""),
+        ),
+      ],
+    ),
     ContactModel(
-        name: "Patrick Bateman",
-        role: "Techops Student Director",
-        phone: "8072828935",
-        email: "kanishka2727@gmail.com",
-        contactTypeList: [
-          ContactTypeModel(
-            icon: MdiIcons.phoneOutline,
-            text: "Call",
-            function: () => IHelpers.phoneCall(phoneNo: "8072828935"),
-          ),
-          ContactTypeModel(
-            icon: MdiIcons.whatsapp,
-            text: "Message",
-            function: () => IHelpers.whatsappMessage(phoneNo: "8072828935"),
-          ),
-          ContactTypeModel(
-            icon: MdiIcons.emailOutline,
-            text: "Email",
-            function: () => IHelpers.sendEmail(email: "kanishka2727@gmail.com"),
-          ),
-        ]),
-    ContactModel(
-        name: "Jordan Belfort",
-        role: "Techops Student Director",
-        phone: "8072828935",
-        email: "kanishka2727@gmail.com",
-        contactTypeList: [
-          ContactTypeModel(
-            icon: MdiIcons.phoneOutline,
-            text: "Call",
-            function: () => IHelpers.phoneCall(phoneNo: "8072828935"),
-          ),
-          ContactTypeModel(
-            icon: MdiIcons.whatsapp,
-            text: "Message",
-            function: () => IHelpers.whatsappMessage(phoneNo: "8072828935"),
-          ),
-          ContactTypeModel(
-            icon: MdiIcons.emailOutline,
-            text: "Email",
-            function: () => IHelpers.sendEmail(email: "kanishka2727@gmail.com"),
-          ),
-        ])
+      name: "Saranya",
+      role: "SAAS Vice President",
+      phone: "+91 6381 556 672",
+      email: "kanishka2727@gmail.com",
+      contactTypeList: [
+        ContactTypeModel(
+          icon: MdiIcons.phoneOutline,
+          text: "Call",
+          function: () => IHelpers.phoneCall(phoneNo: "+91 6381 556 672"),
+        ),
+        ContactTypeModel(
+          icon: MdiIcons.whatsapp,
+          text: "Message",
+          function: () => IHelpers.whatsappMessage(phoneNo: "+91 6381 556 672"),
+        ),
+        ContactTypeModel(
+          icon: MdiIcons.emailOutline,
+          text: "Email",
+          function: () => IHelpers.sendEmail(email: ""),
+        ),
+      ],
+    ),
   ];
   static List<ContactModel> helpDevs = [
     ContactModel(
         name: "Omprakash D",
         role: "Computer Science and Engineering",
-        phone: "7845222018",
+        phone: "+91 78452 22018",
         email: "omprakashd10051@gmail.com",
         contactTypeList: [
           ContactTypeModel(
@@ -102,7 +82,7 @@ class ContactModel {
           ContactTypeModel(
             icon: MdiIcons.whatsapp,
             text: "Whatsapp",
-            function: () => IHelpers.whatsappMessage(phoneNo: "7845222018"),
+            function: () => IHelpers.whatsappMessage(phoneNo: "+91 78452 22018"),
           ),
           ContactTypeModel(
             icon: MdiIcons.linkedin,
@@ -114,7 +94,7 @@ class ContactModel {
     ContactModel(
         name: "Kanishka S",
         role: "Computer Science and Engineering",
-        phone: "8072828935",
+        phone: "+91 80728 28935",
         email: "kanishka2727@gmail.com",
         contactTypeList: [
           ContactTypeModel(
@@ -127,7 +107,7 @@ class ContactModel {
           ContactTypeModel(
             icon: MdiIcons.whatsapp,
             text: "Whatsapp",
-            function: () => IHelpers.whatsappMessage(phoneNo: "8072828935"),
+            function: () => IHelpers.whatsappMessage(phoneNo: "+91 80728 28935"),
           ),
           ContactTypeModel(
             icon: MdiIcons.linkedin,

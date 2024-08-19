@@ -110,16 +110,21 @@ class IHelpers {
     return '$formattedStartTime to $formattedEndTime';
   }
 
-  static bool isProgramOngoing(String startTimeStr, String endTimeStr) {
+  static bool isProgramOngoing(
+      String startTimeStr, String endTimeStr, String dateStr) {
     final DateFormat timeFormat = DateFormat('HH:mm');
+    final DateFormat dateFormat = DateFormat('yyyy-MM-dd');
+
     final DateTime now = DateTime.now();
+    final DateTime date = dateFormat.parse(dateStr);
+
     final DateTime startTime = timeFormat.parse(startTimeStr);
     final DateTime endTime = timeFormat.parse(endTimeStr);
 
     final DateTime programStart = DateTime(
-        now.year, now.month, now.day, startTime.hour, startTime.minute);
+        date.year, date.month, date.day, startTime.hour, startTime.minute);
     final DateTime programEnd =
-        DateTime(now.year, now.month, now.day, endTime.hour, endTime.minute);
+        DateTime(date.year, date.month, date.day, endTime.hour, endTime.minute);
 
     return now.isAfter(programStart) && now.isBefore(programEnd);
   }
@@ -130,6 +135,12 @@ class IHelpers {
     final List<HourModel> upcomingHours = hours.where((hour) {
       final DateTime startTime = _createDateTimeFromTime(hour.startTime);
       return now.isBefore(startTime);
+    }).toList();
+
+    final List<HourModel> currentHours = hours.where((hour) {
+      final DateTime startTime = _createDateTimeFromTime(hour.startTime);
+      final DateTime endTime = _createDateTimeFromTime(hour.endTime);
+      return now.isAfter(startTime) && now.isBefore(endTime);
     }).toList();
 
     final List<HourModel> pastHours = hours.where((hour) {
@@ -143,13 +154,19 @@ class IHelpers {
       return aStart.compareTo(bStart);
     });
 
+    currentHours.sort((a, b) {
+      final DateTime aStart = _createDateTimeFromTime(a.startTime);
+      final DateTime bStart = _createDateTimeFromTime(b.startTime);
+      return aStart.compareTo(bStart);
+    });
+
     pastHours.sort((a, b) {
       final DateTime aStart = _createDateTimeFromTime(a.startTime);
       final DateTime bStart = _createDateTimeFromTime(b.startTime);
       return aStart.compareTo(bStart);
     });
 
-    return upcomingHours + pastHours;
+    return upcomingHours + currentHours + pastHours;
   }
 
   static bool isProgramEnded(String dateStr, String endTimeStr) {
@@ -198,5 +215,15 @@ class IHelpers {
       if (T == double) return 0.0 as T;
       return null;
     }, (right) => right);
+  }
+
+  static String padHourWithZero(String dateTimeString) {
+    if (dateTimeString.contains(' ') &&
+        !dateTimeString.split(' ')[1].startsWith('0')) {
+      DateTime dateTime = DateFormat('yyyy-MM-dd H:mm').parse(dateTimeString);
+      return DateFormat('yyyy-MM-dd HH:mm').format(dateTime);
+    } else {
+      return dateTimeString;
+    }
   }
 }
