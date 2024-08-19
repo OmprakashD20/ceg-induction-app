@@ -56,6 +56,11 @@ class IHelpers {
     launch(url, "Google Maps");
   }
 
+  static Future<void> launchLink(String linkUrl) async {
+    final Uri url = Uri.parse(linkUrl);
+    launch(url, "Notification Link");
+  }
+
   static BatchModel getStudentBatch(List<BatchModel> batches, String batchId) {
     return batches.firstWhere((batch) => batch.batchId == batchId);
   }
@@ -102,12 +107,10 @@ class IHelpers {
     final DateTime startDateTime = inputFormat.parse(startTime);
     final DateTime endDateTime = inputFormat.parse(endTime);
 
-    final String formattedStartTime =
-        outputFormat.format(startDateTime).toLowerCase();
-    final String formattedEndTime =
-        outputFormat.format(endDateTime).toLowerCase();
+    final String formattedStartTime = outputFormat.format(startDateTime);
+    final String formattedEndTime = outputFormat.format(endDateTime);
 
-    return '$formattedStartTime to $formattedEndTime';
+    return '$formattedStartTime - $formattedEndTime';
   }
 
   static bool isProgramOngoing(
@@ -166,7 +169,7 @@ class IHelpers {
       return aStart.compareTo(bStart);
     });
 
-    return upcomingHours + currentHours + pastHours;
+    return currentHours + upcomingHours + pastHours;
   }
 
   static bool isProgramEnded(String dateStr, String endTimeStr) {

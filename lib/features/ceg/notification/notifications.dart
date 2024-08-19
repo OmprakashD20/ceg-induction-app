@@ -96,12 +96,12 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                 time: time,
                                 recencyLabel: notification.recencyLabel!.label,
                                 isFirstInGroup: notification.isFirstInGroup!,
-                                // imagePath: notification.image
-                                //     ? notification.path
-                                //     : null,
-                                // url: notification.url != ""
-                                //     ? notification.url
-                                //     : null,
+                                imagePath: notification.image
+                                    ? notification.path
+                                    : null,
+                                url: notification.url != ""
+                                    ? notification.url
+                                    : null,
                               );
                             },
                           )

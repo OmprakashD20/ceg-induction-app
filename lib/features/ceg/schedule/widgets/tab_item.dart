@@ -9,12 +9,13 @@ class TabItem extends StatelessWidget {
     required this.days,
     required this.date,
     required this.isDisabled,
+    required this.isHoliday,
   });
 
   final bool isSelected;
   final int date;
   final String days;
-  final bool isDisabled;
+  final bool isDisabled, isHoliday;
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +54,9 @@ class TabItem extends StatelessWidget {
             decoration: BoxDecoration(
               color: isDisabled
                   ? IColors.error.withOpacity(0.75)
-                  : IColors.primary,
+                  : isHoliday
+                      ? IColors.success.withOpacity(0.75)
+                      : IColors.primary,
               borderRadius: const BorderRadius.all(
                 Radius.circular(12),
               ),

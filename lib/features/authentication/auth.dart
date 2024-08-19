@@ -147,7 +147,7 @@ class _AuthScreenState extends State<AuthScreen> {
                               decoration: TextFieldHelpers.inputDecoration(
                                 tfBorderRadius: 10.0,
                                 labelText: "Password",
-                                hintText: "Your DOB in YYYY-MM-DD format",
+                                hintText: "Your DOB in DDMMYYYY format",
                                 prefixIcon: const Icon(Iconsax.calendar_1),
                               ),
                             ),

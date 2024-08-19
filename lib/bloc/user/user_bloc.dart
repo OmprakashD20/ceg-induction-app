@@ -33,7 +33,18 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     try {
       final user = await _userRepository.fetchUser(rollNo: rollNo);
 
-      if (user.dob != password || user.rollNo != rollNo) {
+      int day = int.parse(password.substring(0, 2));
+      int month = int.parse(password.substring(2, 4));
+      int year = int.parse(password.substring(4, 8));
+
+      DateTime pwdFromInput = DateTime(year, month, day);
+
+      DateTime pwdFromJson = DateTime.parse(user.dob);
+
+      print(
+          "pwdFromInput: $pwdFromInput, pwdFromJson: $pwdFromJson, ${pwdFromInput.isAtSameMomentAs(pwdFromJson)}");
+
+      if (!pwdFromInput.isAtSameMomentAs(pwdFromJson) || user.rollNo != rollNo) {
         emit(UserError("Invalid credentials"));
         return;
       }

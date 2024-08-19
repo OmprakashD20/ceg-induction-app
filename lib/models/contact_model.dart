@@ -19,48 +19,48 @@ class ContactModel {
 
   static List<ContactModel> helpContacts = [
     ContactModel(
-      name: "M.G.Rahul Prasanth",
-      role: "SAAS Vice President",
+      name: "Deepak Kumar",
+      role: "Techops Student Director",
       phone: "+91 76399 86586",
-      email: "kanishka2727@gmail.com",
+      email: "techops@cegtechforum.in",
       contactTypeList: [
         ContactTypeModel(
           icon: MdiIcons.phoneOutline,
           text: "Call",
-          function: () => IHelpers.phoneCall(phoneNo: "+91 76399 86586"),
+          function: () => IHelpers.phoneCall(phoneNo: "+91 90473 36520"),
         ),
         ContactTypeModel(
           icon: MdiIcons.whatsapp,
           text: "Message",
-          function: () => IHelpers.whatsappMessage(phoneNo: "+91 76399 86586"),
+          function: () => IHelpers.whatsappMessage(phoneNo: "+91 90473 36520"),
         ),
         ContactTypeModel(
           icon: MdiIcons.emailOutline,
           text: "Email",
-          function: () => IHelpers.sendEmail(email: ""),
+          function: () => IHelpers.sendEmail(email: "techops@cegtechforum.in"),
         ),
       ],
     ),
     ContactModel(
-      name: "Saranya",
-      role: "SAAS Vice President",
-      phone: "+91 6381 556 672",
-      email: "kanishka2727@gmail.com",
+      name: "Vishwanth",
+      role: "HR Student Director",
+      phone: "+91 77084 48227",
+      email: "hr@cegtechforum.in",
       contactTypeList: [
         ContactTypeModel(
           icon: MdiIcons.phoneOutline,
           text: "Call",
-          function: () => IHelpers.phoneCall(phoneNo: "+91 6381 556 672"),
+          function: () => IHelpers.phoneCall(phoneNo: "+91 77084 48227"),
         ),
         ContactTypeModel(
           icon: MdiIcons.whatsapp,
           text: "Message",
-          function: () => IHelpers.whatsappMessage(phoneNo: "+91 6381 556 672"),
+          function: () => IHelpers.whatsappMessage(phoneNo: "+91 77084 48227"),
         ),
         ContactTypeModel(
           icon: MdiIcons.emailOutline,
           text: "Email",
-          function: () => IHelpers.sendEmail(email: ""),
+          function: () => IHelpers.sendEmail(email: "hr@cegtechforum.in"),
         ),
       ],
     ),
@@ -82,7 +82,8 @@ class ContactModel {
           ContactTypeModel(
             icon: MdiIcons.whatsapp,
             text: "Whatsapp",
-            function: () => IHelpers.whatsappMessage(phoneNo: "+91 78452 22018"),
+            function: () =>
+                IHelpers.whatsappMessage(phoneNo: "+91 78452 22018"),
           ),
           ContactTypeModel(
             icon: MdiIcons.linkedin,
@@ -107,7 +108,8 @@ class ContactModel {
           ContactTypeModel(
             icon: MdiIcons.whatsapp,
             text: "Whatsapp",
-            function: () => IHelpers.whatsappMessage(phoneNo: "+91 80728 28935"),
+            function: () =>
+                IHelpers.whatsappMessage(phoneNo: "+91 80728 28935"),
           ),
           ContactTypeModel(
             icon: MdiIcons.linkedin,

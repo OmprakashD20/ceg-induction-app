@@ -209,11 +209,12 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                                         weekIndex,
                                         index,
                                       );
+                                      final daySchedule =
+                                          IHelpers.getSelectedDate(batch,
+                                              selectedDayIndex, weekIndex);
                                       return InkWell(
-                                        onTap: result["isAvailable"]
-                                            ? () => onDayItemTapped(
-                                                result["dayIndex"])
-                                            : null,
+                                        onTap: () =>
+                                            onDayItemTapped(result["dayIndex"]),
                                         child: TabItem(
                                           date: result["date"].day,
                                           isSelected: selectedDayIndex ==
@@ -221,6 +222,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                                           days:
                                               days[result["date"].weekday - 1],
                                           isDisabled: !result["isAvailable"],
+                                          isHoliday: daySchedule.holiday,
                                         ),
                                       );
                                     }),
@@ -261,9 +263,9 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                                                   daySchedule: daySchedule,
                                                 )
                                           : const EmptyBoxMessageLoader(
-                                              title: "No Events Today!",
+                                              title: "No Induction!",
                                               content:
-                                                  "Either no events are scheduled today or \"YOUR INDUCTION IS OVER\"!",
+                                                  "Either its yet to start or has already ended!",
                                             );
                                     }),
                               )

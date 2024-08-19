@@ -17,16 +17,16 @@ class UserRepository {
       throw DataNotFoundException(message: l.message);
     }, (userJson) {
       final jsonData = json.decode(userJson) as Map<String, dynamic>;
-      // final users = List<UserModel>.from(
-      //   (jsonData['users'] as List).map(
-      //     (user) => UserModel.fromMap(user),
-      //   ),
-      // );
-      return UserModel.fromMap(jsonData['users'][0]);
-      // return users.firstWhere(
-      //   (user) => user.rollNo == rollNo,
-      //   orElse: () => UserModel.empty(),
-      // );
+      final users = List<UserModel>.from(
+        (jsonData['users'] as List).map(
+          (user) => UserModel.fromMap(user),
+        ),
+      );
+      // return UserModel.fromMap(jsonData['users'][0]);
+      return users.firstWhere(
+        (user) => user.rollNo == rollNo,
+        orElse: () => UserModel.empty(),
+      );
     });
   }
 

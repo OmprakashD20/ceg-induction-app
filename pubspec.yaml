@@ -27,6 +27,7 @@ dependencies:
   connectivity_plus: ^6.0.5
   intl: ^0.18.1
   flutter_native_splash: ^2.4.0
+  cached_network_image: ^3.4.0
 
 dev_dependencies:
   flutter_test:
