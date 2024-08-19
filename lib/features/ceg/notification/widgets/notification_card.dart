@@ -1,10 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:induction_app/common/widgets/small_button.dart';
+import 'package:induction_app/common/widgets/link_card.dart';
 import 'package:induction_app/utils/color.dart';
 import 'package:induction_app/utils/device/device_utils.dart';
 import 'package:induction_app/utils/helpers.dart';
@@ -107,68 +104,53 @@ class NotificationCard extends StatelessWidget {
                         aspectRatio: 1 / 1,
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(10.0),
-                          child: Image.network(
-                            imagePath!,
-                            fit: BoxFit.cover,
+                          child: CachedNetworkImage(
+                            imageUrl: imagePath!,
+                            // imageBuilder: (context, imageProvider) => Container(
+                            //   decoration: BoxDecoration(
+                            //     image: DecorationImage(
+                            //         image: imageProvider,
+                            //         fit: BoxFit.cover,
+                            //         colorFilter: const ColorFilter.mode(
+                            //             Colors.red, BlendMode.colorBurn)),
+                            //   ),
+                            // ),
+                            placeholder: (context, url) => Image.asset(
+                                Constants.loader,
+                                fit: BoxFit.contain),
+                            errorWidget: (context, url, error) => Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  color: IColors.lightBlue),
+                              child: const Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Iconsax.gallery_slash,
+                                    size: 30,
+                                    color: IColors.error,
+                                  ),
+                                  SizedBox(height: 5),
+                                  Text(
+                                    "Failed to load image.",
+                                    style: TextStyle(
+                                        color: IColors.darkGrey, fontSize: 14),
+                                  )
+                                ],
+                              ),
+                            ),
                           ),
-                          // child: CachedNetworkImage(
-                          //   imageUrl: imagePath!,
-                          //   // imageBuilder: (context, imageProvider) => Container(
-                          //   //   decoration: BoxDecoration(
-                          //   //     image: DecorationImage(
-                          //   //         image: imageProvider,
-                          //   //         fit: BoxFit.cover,
-                          //   //         colorFilter: const ColorFilter.mode(
-                          //   //             Colors.red, BlendMode.colorBurn)),
-                          //   //   ),
-                          //   // ),
-                          //   placeholder: (context, url) => Image.asset(
-                          //       Constants.loader,
-                          //       fit: BoxFit.contain),
-                          //   errorWidget: (context, url, error) =>
-                          //       const Icon(Icons.error),
-                          // ),
                         ),
                       ),
                     ),
                   if (url != null)
-                    Container(
-                      //color: IColors.lightBlue,
-                      decoration: BoxDecoration(
-                          color: IColors.lightWhiteBlue,
-                          borderRadius: BorderRadius.circular(7.5)),
-                      padding: const EdgeInsets.all(2.5),
-                      margin: const EdgeInsets.symmetric(vertical: 2.5),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 5.0),
-                              child: Text(
-                                url!,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(color: IColors.primary),
-                              ),
-                            ),
-                          ),
-                          LinkButton(
-                            onTap: () async {
-                              await Clipboard.setData(
-                                  ClipboardData(text: url!));
-                              // copied successfully
-                            },
-                            icon: Iconsax.copy,
-                          ),
-                          LinkButton(
-                              onTap: () async {
-                                IHelpers.launchLink(
-                                  url!,
-                                );
-                              },
-                              icon: Iconsax.arrow_right),
-                        ],
-                      ),
+                    LinkCard(
+                      url: url!,
+                      onTap: () async {
+                        IHelpers.launchLink(
+                          url!,
+                        );
+                      },
                     ),
                   //content
                   Padding(
@@ -196,32 +178,6 @@ class NotificationCard extends StatelessWidget {
           ],
         ),
       ],
-    );
-  }
-}
-
-class LinkButton extends StatelessWidget {
-  const LinkButton({
-    super.key,
-    required this.icon,
-    this.onTap,
-  });
-  final IconData icon;
-  final VoidCallback? onTap;
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-          margin: const EdgeInsets.all(2.5),
-          padding: const EdgeInsets.all(5.0),
-          decoration: BoxDecoration(
-              color: IColors.primary, borderRadius: BorderRadius.circular(7.5)),
-          child: Icon(
-            icon,
-            color: Colors.white,
-            size: 20,
-          )),
     );
   }
 }

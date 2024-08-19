@@ -2,6 +2,9 @@ import 'package:iconsax/iconsax.dart';
 import 'package:induction_app/utils/color.dart';
 
 class Constants {
+  static const String techopsEmail = "techops@cegtechforum.in";
+  static const String hrEmail = "hr@cegtechforum.in";
+
   static const String cegPic = "assets/img/ceg.webp";
   static const String cegFullPic = "assets/img/ceg_full.webp";
   static const String blueBG = "assets/img/bg.webp";
