@@ -106,15 +106,6 @@ class NotificationCard extends StatelessWidget {
                           borderRadius: BorderRadius.circular(10.0),
                           child: CachedNetworkImage(
                             imageUrl: imagePath!,
-                            // imageBuilder: (context, imageProvider) => Container(
-                            //   decoration: BoxDecoration(
-                            //     image: DecorationImage(
-                            //         image: imageProvider,
-                            //         fit: BoxFit.cover,
-                            //         colorFilter: const ColorFilter.mode(
-                            //             Colors.red, BlendMode.colorBurn)),
-                            //   ),
-                            // ),
                             placeholder: (context, url) => Image.asset(
                                 Constants.loader,
                                 fit: BoxFit.contain),

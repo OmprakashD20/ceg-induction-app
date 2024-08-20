@@ -5,8 +5,11 @@ import 'package:induction_app/utils/color.dart';
 import 'package:induction_app/utils/device/device_utils.dart';
 
 class ILoaderScreen extends StatelessWidget {
-  const ILoaderScreen({super.key, required this.content});
+  const ILoaderScreen(
+      {super.key, required this.content, this.height, this.width});
   final Map<String, String> content;
+  final double? height;
+  final double? width;
   @override
   Widget build(BuildContext context) {
     double width = IDeviceUtils.getScreenWidth(context);
@@ -22,21 +25,25 @@ class ILoaderScreen extends StatelessWidget {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(width * 0.75),
-                child: Lottie.asset(content["lottie"]!,
-                    fit: BoxFit.cover,
-                    height: width * 0.75,
-                    width: width * 0.75),
+                child: Lottie.asset(
+                  content["lottie"]!,
+                  fit: BoxFit.cover,
+                  height: (height == null) ? width * 0.75 : null,
+                  width: (width == null) ? width * 0.75 : null,
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 25.0, bottom: 5.0),
                 child: Text(
                   content["title"]!,
-                  style: const TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500),
+                  style: const TextStyle(
+                      fontSize: 18.0, fontWeight: FontWeight.w500),
                 ),
               ),
               Text(content["subTitle"]!,
                   textAlign: TextAlign.center,
-                  style: const TextStyle(fontSize: 15.0, color: IColors.darkGrey))
+                  style:
+                      const TextStyle(fontSize: 15.0, color: IColors.darkGrey))
             ],
           ),
         ),

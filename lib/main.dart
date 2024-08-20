@@ -81,38 +81,49 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      scaffoldMessengerKey: ISnackBar.snackbarKey,
-      debugShowCheckedModeBanner: false,
-      title: 'Induction App',
-      themeMode: ThemeMode.system,
-      theme: ThemeData(
-        fontFamily: 'Poppins',
-        textSelectionTheme: const TextSelectionThemeData(
-          cursorColor: IColors.primary,
-          selectionColor: IColors.primary,
+        scaffoldMessengerKey: ISnackBar.snackbarKey,
+        debugShowCheckedModeBanner: false,
+        title: 'Induction App',
+        themeMode: ThemeMode.system,
+        theme: ThemeData(
+          fontFamily: 'Poppins',
+          textSelectionTheme: const TextSelectionThemeData(
+            cursorColor: IColors.primary,
+            selectionColor: IColors.primary,
+          ),
         ),
-      ),
-      home: ConnectivityHandler(
-        successWidget: FutureBuilder<Map<String, bool>>(
-          future: _checkPrefernces(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const ILoaderScreen(content: Constants.loadingLoader);
-            } else if (snapshot.data!["onBoarding"] == false) {
-              return const OnBoardingScreen();
-            } else if (snapshot.data!["onBoarding"] == true &&
-                snapshot.data!["rollNo"] == false) {
-              return const AuthScreen();
-            } else if (snapshot.data!["rollNo"] == true) {
-              _fetchUser(context);
-              return const NavigationMenuBar();
-            } else if (snapshot.hasError) {
-              return const ILoaderScreen(content: Constants.error404Loader);
-            }
-            return Container();
-          },
-        ),
-      ),
-    );
+        home: OrientationBuilder(builder: (context, orientation) {
+          if (MediaQuery.of(context).size.width > 450) {
+            return const ILoaderScreen(
+              content: Constants.noTabletLoader,
+              height: 0.0,
+              width: 0.0,
+            );
+          } else {
+            return ConnectivityHandler(
+              successWidget: FutureBuilder<Map<String, bool>>(
+                future: _checkPrefernces(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const ILoaderScreen(
+                        content: Constants.loadingLoader);
+                  } else if (snapshot.data!["onBoarding"] == false) {
+                    return const OnBoardingScreen();
+                  } else if (snapshot.data!["onBoarding"] == true &&
+                      snapshot.data!["rollNo"] == false) {
+                    return const AuthScreen();
+                  } else if (snapshot.data!["rollNo"] == true) {
+                    _fetchUser(context);
+                    return const NavigationMenuBar();
+                  } else if (snapshot.hasError) {
+                    return const ILoaderScreen(
+                        content: Constants.error404Loader);
+                  }
+                  return Container();
+                },
+              ),
+            );
+          }
+        }));
   }
 }

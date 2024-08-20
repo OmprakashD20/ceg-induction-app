@@ -15,6 +15,7 @@ class Constants {
   static const String screen = "assets/img/screen.webp";
   static const String map = 'assets/img/map.webp';
   static const String loader = 'assets/img/loader.webp';
+  static const String placeholder = 'assets/img/placeholder.jpg';
 
   static const String scheduleBox = "assets/img/schedule.webp";
   static const String cegMapBox = "assets/img/ceg_maps.webp";
@@ -35,6 +36,7 @@ class Constants {
   static const String freshers = 'assets/lottie/freshers.json';
   static const String holiday = 'assets/lottie/holiday.json';
   static const String cat = 'assets/lottie/cat.json';
+  static const String tabletNot = 'assets/lottie/tablet.json';
 
   static const Map<String, String> loadingLoader = {
     "title": 'Hang Tight!',
@@ -51,6 +53,12 @@ class Constants {
     "title": "Page Not Found",
     "subTitle": "Uh-oh! We can't seem to find what you're looking for.",
     "lottie": error404
+  };
+  static const Map<String, String> noTabletLoader = {
+    "title": "Oops, Not Available on Tablet!",
+    "subTitle":
+        "This feature is best viewed on a mobile device. Please switch to your phone to continue.",
+    "lottie": tabletNot
   };
 
   static Map<String, Map<String, dynamic>> notificationStyles = {

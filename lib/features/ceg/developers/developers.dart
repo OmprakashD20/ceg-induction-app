@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:induction_app/common/widgets/ctf_box.dart';
 import 'package:induction_app/common/widgets/screen_app_bar.dart';
 import 'package:induction_app/features/authentication/widgets/screen_background.dart';
 import 'package:induction_app/features/ceg/help/widgets/contact_card.dart';
@@ -29,6 +30,12 @@ class DevelopersScreen extends StatelessWidget {
             ),
             ContatctCard(
               contacts: ContactModel.helpDevs,
+            ),
+            const Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: 20.0,
+              ),
+              child: CTFBox(),
             )
           ],
         )),

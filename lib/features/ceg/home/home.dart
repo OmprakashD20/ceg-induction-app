@@ -82,7 +82,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       currentSchedule.holiday
                           ? Container(
                               height: 150,
-                              width: IDeviceUtils.getScreenWidth(context) * 0.9,
+                              width:
+                                  IDeviceUtils.getScreenWidth(context) * 0.95,
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(10.0),
@@ -130,8 +131,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                             maxLines: 2,
                                             overflow: TextOverflow.ellipsis,
                                             style: TextStyle(
-                                                fontSize: 17.0,
-                                                fontWeight: FontWeight.w500),
+                                              fontSize: 16.0,
+                                              fontWeight: FontWeight.w500,
+                                            ),
                                           ),
                                           SizedBox(
                                             height: 5.0,
@@ -141,7 +143,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             overflow: TextOverflow.ellipsis,
                                             maxLines: 3,
                                             style: TextStyle(
-                                                fontSize: 15.0,
+                                                fontSize: 14.0,
                                                 color: IColors.darkGrey),
                                           )
                                         ],

@@ -1,4 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:induction_app/bloc/user/user_bloc.dart';
@@ -73,12 +76,17 @@ class PlacesScreen extends StatelessWidget {
                                         topLeft: Radius.circular(10.0),
                                         topRight: Radius.circular(10.0),
                                       ),
-                                      child: Image.network(
-                                        height: 100.0,
-                                        width: double.infinity,
-                                        places![index].imageUrl,
-                                        fit: BoxFit.cover,
-                                      ),
+                                      child: CachedNetworkImage(
+                                          height: 100.0,
+                                          width: double.infinity,
+                                          imageUrl: places![index].imageUrl,
+                                          fit: BoxFit.cover,
+                                          placeholder: (context, url) =>
+                                              Image.asset(Constants.loader,
+                                                  fit: BoxFit.contain),
+                                          errorWidget: (context, url, error) =>
+                                              Image.asset(
+                                                  Constants.placeholder)),
                                     ),
                                     Positioned(
                                       top: 10.0,
@@ -87,7 +95,9 @@ class PlacesScreen extends StatelessWidget {
                                         onTap: () {
                                           showImageDialog(
                                             context,
+                                            places[index].name,
                                             places[index].imageUrl,
+                                            places[index].mapLink,
                                           );
                                         },
                                         size: 25,
@@ -175,35 +185,74 @@ class PlacesScreen extends StatelessWidget {
     ));
   }
 
-  void showImageDialog(BuildContext context, String imageUrl) {
+  void showImageDialog(
+      BuildContext context, String title, String imageUrl, String mapUrl) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return Dialog(
-          backgroundColor: IColors.lightBlue,
+          backgroundColor: IColors.lightWhiteBlue,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Image.asset(imageUrl),
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8),
-                child: IButton(
-                  onTap: () {
-                    Navigator.of(context).pop();
-                  },
-                  margin: 0.0,
-                  icon: Iconsax.close_square,
-                  isPrefixIcon: true,
-                  text: "Exit",
+          child: Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  title,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w600),
                 ),
-              )
-            ],
+                SizedBox(
+                  height: 10.0,
+                ),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(10.0),
+                  child: CachedNetworkImage(
+                      imageUrl: imageUrl,
+                      fit: BoxFit.cover,
+                      placeholder: (context, url) =>
+                          Image.asset(Constants.loader, fit: BoxFit.contain),
+                      errorWidget: (context, url, error) =>
+                          Image.asset(Constants.placeholder)),
+                ),
+                SizedBox(
+                  height: 10.0,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Expanded(
+                      child: IButton(
+                        onTap: () {
+                          Navigator.of(context).pop();
+                        },
+                        margin: 0.0,
+                        icon: Iconsax.close_square,
+                        isPrefixIcon: true,
+                        text: "Exit",
+                      ),
+                    ),
+                    SizedBox(
+                      width: 10.0,
+                    ),
+                    Expanded(
+                      child: IButton(
+                        onTap: () {
+                          IHelpers.openMap(mapUrl);
+                        },
+                        margin: 0.0,
+                        icon: Iconsax.arrow_right,
+                        isPrefixIcon: true,
+                        text: "Maps",
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            ),
           ),
         );
       },
