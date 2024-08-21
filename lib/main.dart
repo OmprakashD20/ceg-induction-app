@@ -96,8 +96,8 @@ class App extends StatelessWidget {
           if (MediaQuery.of(context).size.width > 450) {
             return const ILoaderScreen(
               content: Constants.noTabletLoader,
-              height: 0.0,
-              width: 0.0,
+              LHeight: 0.0,
+              LWidth: 0.0,
             );
           } else {
             return ConnectivityHandler(

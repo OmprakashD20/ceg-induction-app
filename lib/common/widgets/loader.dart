@@ -6,10 +6,10 @@ import 'package:induction_app/utils/device/device_utils.dart';
 
 class ILoaderScreen extends StatelessWidget {
   const ILoaderScreen(
-      {super.key, required this.content, this.height, this.width});
+      {super.key, required this.content, this.LHeight, this.LWidth});
   final Map<String, String> content;
-  final double? height;
-  final double? width;
+  final double? LHeight;
+  final double? LWidth;
   @override
   Widget build(BuildContext context) {
     double width = IDeviceUtils.getScreenWidth(context);
@@ -28,8 +28,8 @@ class ILoaderScreen extends StatelessWidget {
                 child: Lottie.asset(
                   content["lottie"]!,
                   fit: BoxFit.cover,
-                  height: (height == null) ? width * 0.75 : null,
-                  width: (width == null) ? width * 0.75 : null,
+                  height: (LHeight == null) ? width * 0.75 : null,
+                  width: (LWidth == null) ? width * 0.75 : null,
                 ),
               ),
               Padding(

@@ -1,14 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
+
 import 'package:induction_app/bloc/user/user_bloc.dart';
+import 'package:induction_app/common/handler/connectivity_handler.dart';
 import 'package:induction_app/common/widgets/button.dart';
 import 'package:induction_app/common/widgets/loader.dart';
 import 'package:induction_app/common/widgets/screen_app_bar.dart';
-import 'package:induction_app/common/handler/connectivity_handler.dart';
 import 'package:induction_app/common/widgets/small_button.dart';
 import 'package:induction_app/features/authentication/widgets/screen_background.dart';
 import 'package:induction_app/utils/color.dart';
@@ -203,9 +202,9 @@ class PlacesScreen extends StatelessWidget {
                 Text(
                   title,
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w600),
+                  style: const TextStyle(fontSize: 16.0, fontWeight: FontWeight.w600),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10.0,
                 ),
                 ClipRRect(
@@ -218,7 +217,7 @@ class PlacesScreen extends StatelessWidget {
                       errorWidget: (context, url, error) =>
                           Image.asset(Constants.placeholder)),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10.0,
                 ),
                 Row(
@@ -235,7 +234,7 @@ class PlacesScreen extends StatelessWidget {
                         text: "Exit",
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 10.0,
                     ),
                     Expanded(

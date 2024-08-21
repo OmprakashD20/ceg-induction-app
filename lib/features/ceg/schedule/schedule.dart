@@ -9,6 +9,7 @@ import 'package:induction_app/common/widgets/screen_app_bar.dart';
 import 'package:induction_app/common/widgets/small_button.dart';
 import 'package:induction_app/features/authentication/widgets/screen_background.dart';
 import 'package:induction_app/features/ceg/schedule/widgets/tab_item.dart';
+import 'package:induction_app/models/schedule_model.dart';
 import 'package:induction_app/utils/color.dart';
 import 'package:induction_app/utils/helpers.dart';
 import 'package:induction_app/utils/device/device_utils.dart';
@@ -40,6 +41,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
   void initState() {
     super.initState();
     selectedWeekIndex = _calculateCurrentWeekIndex();
+    selectedDayIndex = _calculateCurrentDayIndex();
     dayPageController = PageController(initialPage: selectedDayIndex);
     weekPageController = PageController(initialPage: selectedWeekIndex);
     _fetchRollNoAndAddEvent();
@@ -52,6 +54,16 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
     }
     final daysPassed = now.difference(startDate).inDays;
     return (daysPassed / 7).floor();
+  }
+
+  int _calculateCurrentDayIndex() {
+    final currentDate = DateTime.now();
+
+    int daysDifference = currentDate.difference(startDate).inDays;
+
+    int dayIndex = daysDifference % 7;
+
+    return dayIndex >= 0 ? dayIndex : (dayIndex + 7);
   }
 
   Future<void> _fetchRollNoAndAddEvent() async {
@@ -209,9 +221,15 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                                         weekIndex,
                                         index,
                                       );
-                                      final daySchedule =
-                                          IHelpers.getSelectedDate(batch,
-                                              selectedDayIndex, weekIndex);
+                                      DateModel? daySchedule;
+                                      if (result["isAvailable"]) {
+                                        daySchedule = IHelpers.getSelectedDate(
+                                          batch,
+                                          result["dayIndex"],
+                                          weekIndex,
+                                          startDate,
+                                        );
+                                      }
                                       return InkWell(
                                         onTap: () =>
                                             onDayItemTapped(result["dayIndex"]),
@@ -222,7 +240,9 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                                           days:
                                               days[result["date"].weekday - 1],
                                           isDisabled: !result["isAvailable"],
-                                          isHoliday: daySchedule.holiday,
+                                          isHoliday: daySchedule != null
+                                              ? daySchedule.holiday
+                                              : false,
                                         ),
                                       );
                                     }),
@@ -245,10 +265,18 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                                         weekIndex,
                                         index,
                                       );
-                                      final daySchedule =
-                                          IHelpers.getSelectedDate(batch,
-                                              selectedDayIndex, weekIndex);
-                                      final isHoliday = daySchedule.holiday;
+                                      DateModel? daySchedule;
+                                      if (result["isAvailable"]) {
+                                        daySchedule = IHelpers.getSelectedDate(
+                                          batch,
+                                          result["dayIndex"],
+                                          weekIndex,
+                                          startDate,
+                                        );
+                                      }
+                                      final isHoliday = daySchedule != null
+                                          ? daySchedule.holiday
+                                          : false;
                                       return (result["isAvailable"])
                                           ? isHoliday
                                               ? const EmptyBoxMessageLoader(
@@ -260,7 +288,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                                                 )
                                               : DayEventsSchedule(
                                                   index: index,
-                                                  daySchedule: daySchedule,
+                                                  daySchedule: daySchedule!,
                                                 )
                                           : const EmptyBoxMessageLoader(
                                               title: "No Induction!",

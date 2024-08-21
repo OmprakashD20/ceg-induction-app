@@ -66,8 +66,18 @@ class IHelpers {
   }
 
   static DateModel getSelectedDate(
-      BatchModel batch, int selectedDayIndex, int weekIndex) {
-    return batch.dates[weekIndex * 7 + selectedDayIndex];
+    BatchModel batch,
+    int selectedDayIndex,
+    int weekIndex,
+    DateTime startDate,
+  ) {
+    int totalDaysOffset = (weekIndex * 7) + selectedDayIndex;
+
+    DateTime calculatedDate = startDate.add(Duration(days: totalDaysOffset));
+
+    String formattedDate = DateFormat('yyyy-MM-dd').format(calculatedDate);
+
+    return batch.dates.firstWhere((date) => date.date == formattedDate);
   }
 
   static DateModel getCurrentDaySchedule(BatchModel batch) {
