@@ -1,5 +1,7 @@
 # 🎓 CEG Freshers' Induction App
 
+![all](https://github.com/user-attachments/assets/50e81244-7e5c-4e5a-8d20-fcb9fddf3663)
+
 Welcome to the official repository for the **College Freshers' Induction App**! 🎉 This app is designed to help new students navigate their first days at college with ease. It includes everything you need to make the most of your induction experience, from schedules to campus maps! 🗺️
 
 ## 🌟 Features
