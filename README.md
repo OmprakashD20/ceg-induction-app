@@ -18,5 +18,11 @@ Welcome to the official repository for the **College Freshers' Induction App**! 
 - **BLoC (Business Logic Component)**: State management is handled with BLoC for a scalable and maintainable codebase.
 
 ## 📸 Screenshots
-
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/aaa1fc1e-862c-428e-982c-c3281da8f83f" width="150px" />
+  <img src="https://github.com/user-attachments/assets/aaa1fc1e-862c-428e-982c-c3281da8f83f" width="150px" />
+  <img src="https://github.com/user-attachments/assets/aaa1fc1e-862c-428e-982c-c3281da8f83f" width="150px" />
+  <img src="https://github.com/user-attachments/assets/aaa1fc1e-862c-428e-982c-c3281da8f83f" width="150px" />
+ 
+</div>
 
