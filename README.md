@@ -4,6 +4,8 @@
 
 Welcome to the official repository for the **College Freshers' Induction App**! 🎉 This app is designed to help new students navigate their first days at college with ease. It includes everything you need to make the most of your induction experience, from schedules to campus maps! 🗺️
 
+![CEG IInduction App](https://github.com/user-attachments/assets/5942676a-a70e-45f3-b32f-f75439fc8ad3)
+
 ## 🌟 Features
 
 - **🗓️ Induction Program Schedule**: Stay up-to-date with all the events and activities happening during the induction.
@@ -16,6 +18,8 @@ Welcome to the official repository for the **College Freshers' Induction App**! 
 
 - **Flutter**: Built using Flutter for a smooth and responsive UI experience.
 - **BLoC (Business Logic Component)**: State management is handled with BLoC for a scalable and maintainable codebase.
+
+## 📸 Demo
 
 ## 📸 Screenshots
 <div align="center">
@@ -31,11 +35,12 @@ Welcome to the official repository for the **College Freshers' Induction App**! 
   <img src="https://github.com/user-attachments/assets/881f3cbc-a60a-4e45-ad8f-d5b181107be7" width="200px" />
 </div>
 
-<div align="center">
-  <img src="https://github.com/user-attachments/assets/59ec720f-e8f5-4270-b7f6-63d68f47689f" width="200px" />
+<div align="center">  <img src="https://github.com/user-attachments/assets/5b062c73-497f-47c6-9e1e-a9e0055e6f0e" width="200px" />
+
+  <img src="https://github.com/user-attachments/assets/01c88e07-db67-4a56-aeef-aa122ad2e10a" width="200px" />
+  <img src="https://github.com/user-attachments/assets/5b062c73-497f-47c6-9e1e-a9e0055e6f0e" width="200px" />
   <img src="https://github.com/user-attachments/assets/5b062c73-497f-47c6-9e1e-a9e0055e6f0e" width="200px" />
   <img src="https://github.com/user-attachments/assets/3e2cab4d-6348-4d5e-8d95-c6236110f4a4" width="200px" />
-  <img src="https://github.com/user-attachments/assets/5b062c73-497f-47c6-9e1e-a9e0055e6f0e" width="200px" />
   
 </div>
 
