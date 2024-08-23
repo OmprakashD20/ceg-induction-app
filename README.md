@@ -19,16 +19,24 @@ Welcome to the official repository for the **College Freshers' Induction App**! 
 
 ## 📸 Screenshots
 <div align="center">
+  <img src="https://github.com/user-attachments/assets/3339f1bb-aa88-4922-9ede-6fd89114706e" width="200px" />
+  <img src="https://github.com/user-attachments/assets/d45ddfdf-b89b-42b9-9e8e-f2e25c4d7d94" width="200px" />
+  <img src="https://github.com/user-attachments/assets/f94ca5c7-5efe-456f-a3b9-be14af13fe86" width="200px" />
+  <img src="https://github.com/user-attachments/assets/aa2f73b2-dff4-4229-a219-717f5bd7591c" width="200px" />
+</div>
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/fab5e1d8-13b8-414f-a62c-1b7abfd951b8" width="200px" />
+  <img src="https://github.com/user-attachments/assets/84946287-fdda-4fba-b4fb-131cc62125d4" width="200px" />
+  <img src="https://github.com/user-attachments/assets/53dd5def-62db-4ebe-a7d1-7f34a7c25289" width="200px" />
+  <img src="https://github.com/user-attachments/assets/881f3cbc-a60a-4e45-ad8f-d5b181107be7" width="200px" />
+</div>
+
+<div align="center">
   <img src="https://github.com/user-attachments/assets/59ec720f-e8f5-4270-b7f6-63d68f47689f" width="200px" />
   <img src="https://github.com/user-attachments/assets/5b062c73-497f-47c6-9e1e-a9e0055e6f0e" width="200px" />
-  <img src="https://github.com/user-attachments/assets/1d406eb4-c149-4365-b897-fb9eaccf0799" width="200px" />
+  <img src="https://github.com/user-attachments/assets/3e2cab4d-6348-4d5e-8d95-c6236110f4a4" width="200px" />
   <img src="https://github.com/user-attachments/assets/5b062c73-497f-47c6-9e1e-a9e0055e6f0e" width="200px" />
   
 </div>
-<div align="center">
-  <img src="https://github.com/user-attachments/assets/189a11ad-d191-4d45-98ed-2c3fba7a4936" width="200px" />
-  <img src="https://github.com/user-attachments/assets/3e2cab4d-6348-4d5e-8d95-c6236110f4a4" width="200px" />
-  <img src="https://github.com/user-attachments/assets/84946287-fdda-4fba-b4fb-131cc62125d4" width="200px" />
-  <img src="https://github.com/user-attachments/assets/53dd5def-62db-4ebe-a7d1-7f34a7c25289" width="200px" />
-</div>
+
 
