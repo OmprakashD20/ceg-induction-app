@@ -19,8 +19,6 @@ Welcome to the official repository for the **College Freshers' Induction App**! 
 - **Flutter**: Built using Flutter for a smooth and responsive UI experience.
 - **BLoC (Business Logic Component)**: State management is handled with BLoC for a scalable and maintainable codebase.
 
-## 📸 Demo
-
 ## 📸 Screenshots
 <div align="center">
   <img src="https://github.com/user-attachments/assets/3339f1bb-aa88-4922-9ede-6fd89114706e" width="200px" />
