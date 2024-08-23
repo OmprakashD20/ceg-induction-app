@@ -19,9 +19,16 @@ Welcome to the official repository for the **College Freshers' Induction App**! 
 
 ## 📸 Screenshots
 <div align="center">
+  <img src="https://github.com/user-attachments/assets/59ec720f-e8f5-4270-b7f6-63d68f47689f" width="200px" />
+  <img src="https://github.com/user-attachments/assets/5b062c73-497f-47c6-9e1e-a9e0055e6f0e" width="200px" />
+  <img src="https://github.com/user-attachments/assets/1d406eb4-c149-4365-b897-fb9eaccf0799" width="200px" />
+  <img src="https://github.com/user-attachments/assets/5b062c73-497f-47c6-9e1e-a9e0055e6f0e" width="200px" />
+  
+</div>
+<div align="center">
   <img src="https://github.com/user-attachments/assets/189a11ad-d191-4d45-98ed-2c3fba7a4936" width="200px" />
   <img src="https://github.com/user-attachments/assets/3e2cab4d-6348-4d5e-8d95-c6236110f4a4" width="200px" />
-  <img src="https://github.com/user-attachments/assets/f2" width="200px" />
+  <img src="https://github.com/user-attachments/assets/84946287-fdda-4fba-b4fb-131cc62125d4" width="200px" />
   <img src="https://github.com/user-attachments/assets/53dd5def-62db-4ebe-a7d1-7f34a7c25289" width="200px" />
 </div>
 
